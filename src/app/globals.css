@@ -1,0 +1,338 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "katex/dist/katex.min.css";
+
+@layer base {
+  .prose {
+    @apply max-w-none text-slate-800 dark:text-slate-200 leading-relaxed;
+    /* Remove text-justify by default for better mobile flow, only justify on larger screens if desired */
+    @apply text-left;
+    /* Prevent long words or URLs from breaking the layout */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .prose h1 {
+    @apply text-4xl lg:text-5xl font-black mb-12 text-foreground tracking-tighter font-heading text-left;
+  }
+
+  .prose h2 {
+    @apply mt-24 mb-12 pb-4 border-b-2 border-primary/20 text-3xl font-black tracking-tight text-primary text-left;
+  }
+
+  .prose h3 {
+    @apply mt-12 mb-6 text-2xl font-bold tracking-tight text-foreground font-heading text-left;
+  }
+
+  .prose h4 {
+    @apply mt-8 mb-4 text-xl font-semibold tracking-tight text-foreground font-heading text-left;
+  }
+
+  .prose div[style*="background-color"] {
+    @apply dark:!bg-slate-900 dark:!text-slate-100 dark:!border-primary/30 !transition-colors;
+  }
+
+  .prose p {
+    @apply my-6;
+  }
+
+  .prose ul, .prose ol {
+    @apply my-8 space-y-6;
+  }
+
+  .prose li {
+    @apply pl-4 leading-relaxed;
+  }
+  
+  .prose hr {
+    @apply my-20 border-t-2 border-primary/5;
+  }
+
+  /* Callout Blocks (GitHub Style Alerts) */
+  .prose blockquote {
+    @apply px-6 py-8 md:px-10 md:py-10 my-10 md:my-16 rounded-2xl md:rounded-[2.5rem] text-slate-700 dark:text-slate-300;
+    border: none !important;
+    font-style: normal !important;
+    quotes: none;
+    box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.05);
+  }
+  
+  .prose blockquote * {
+    font-style: normal !important;
+  }
+  
+  .prose blockquote::before,
+  .prose blockquote::after,
+  .prose blockquote p::before,
+  .prose blockquote p::after {
+    content: none !important;
+  }
+
+  /* Callout Block Specific Themes (Handled via direct CSS for maximum reliability) */
+  .prose blockquote[data-type="note"] { @apply bg-blue-50 dark:bg-blue-900/30; }
+  .prose blockquote[data-type="warning"] { @apply bg-amber-50 dark:bg-amber-900/30; }
+  .prose blockquote[data-type="important"] { @apply bg-purple-50 dark:bg-purple-900/30; }
+  .prose blockquote[data-type="tip"] { @apply bg-emerald-50 dark:bg-emerald-900/30; }
+  .prose blockquote[data-type="caution"] { @apply bg-rose-50 dark:bg-rose-900/30; }
+
+  /* Fix for Prerequisites inside callouts */
+  .prose blockquote h2, 
+  .prose blockquote h3 {
+    @apply text-lg font-bold mt-0 mb-4 not-italic;
+  }
+
+  /* Intuition Loops (Details/Summary) */
+  .prose details {
+    @apply my-8 rounded-2xl border border-border/50 bg-card overflow-hidden transition-all;
+  }
+
+  .prose summary {
+    @apply px-6 py-4 font-bold cursor-pointer hover:bg-accent/50 list-none flex items-center justify-between transition-colors;
+  }
+
+  .prose summary::after {
+    content: "Reveal Intuition →";
+    @apply text-xs font-bold text-primary uppercase tracking-widest;
+  }
+
+  .prose details[open] summary::after {
+    content: "Close";
+  }
+
+  .prose details > div {
+    @apply px-6 py-6 border-t border-border/50 bg-muted/20;
+  }
+
+  /* Responsive Math (Latex Blocks) */
+  .katex-display {
+    @apply overflow-x-auto overflow-y-hidden bg-slate-50 dark:bg-slate-900 rounded-2xl md:rounded-[2rem] relative;
+    padding: 1rem !important; /* Aggressive reduction */
+    margin: 2rem 0 !important;
+    text-align: center !important;
+    min-height: 0 !important;
+    display: block !important;
+  }
+
+  /* Force visible gaps between lines in aligned/matrix environments */
+  .katex-display .mtable {
+    display: table !important;
+    border-collapse: separate !important;
+    border-spacing: 0 1.2rem !important;
+    width: auto !important;
+    margin: 0 auto !important;
+  }
+
+  .katex-display .mtr {
+    display: table-row !important;
+  }
+
+  .katex-display .mtd {
+    padding: 0.6rem 0 !important;
+    vertical-align: middle !important;
+  }
+
+  /* Strip KaTeX default vertical list offsets */
+  .katex-display .vlist-t,
+  .katex-display .vlist-t2,
+  .katex-display .vlist-r {
+    margin-top: 0 !important;
+    margin-bottom: 0.5rem !important;
+    padding-top: 0 !important;
+  }
+
+  /* Visual Cue: Fade effect to show more content is scrollable */
+  .katex-display::after {
+    content: "";
+    @apply absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-muted/40 to-transparent pointer-events-none opacity-0 transition-opacity;
+  }
+
+  .katex-display:hover::after {
+    @apply opacity-100;
+  }
+
+  /* Premium Scrollbars */
+  .katex-display::-webkit-scrollbar {
+    height: 6px;
+  }
+  .katex-display::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  .katex-display::-webkit-scrollbar-thumb {
+    @apply bg-primary/20 rounded-full hover:bg-primary/40 transition-colors;
+  }
+
+  .katex {
+    @apply text-[0.9em] md:text-[1.05em];
+    text-rendering: optimizeLegibility;
+    /* Inline math should not trigger scrollbars */
+    overflow: visible !important;
+  }
+
+  /* Prevent text-justify from creating huge gaps around math */
+  .prose .katex {
+    @apply inline-block mx-0.5;
+    white-space: nowrap;
+  }
+
+  /* Handle ultra-long inline math that breaks mobile */
+  @media (max-width: 640px) {
+    .prose .katex {
+      @apply max-w-full overflow-x-auto align-middle;
+    }
+  }
+
+  /* Responsive Tables - Critical for "No Pruning" */
+  .prose table {
+    @apply block w-full overflow-x-auto border-collapse my-8;
+    -webkit-overflow-scrolling: touch;
+    /* Ensure table content doesn't shrink too much */
+    min-width: 100%;
+  }
+
+  .prose thead {
+    @apply border-b-2 border-primary/10;
+  }
+
+  .prose th, .prose td {
+    @apply px-4 py-3 text-left min-w-[120px] md:min-w-0;
+  }
+
+  /* Responsive Images */
+  .prose img {
+    @apply max-w-full h-auto rounded-2xl mx-auto my-8 block shadow-lg transition-transform hover:scale-[1.01];
+  }
+
+  /* Improved Touch Targets */
+  .touch-target {
+    @apply min-h-[44px] flex items-center;
+  }
+}
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-outfit);
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
