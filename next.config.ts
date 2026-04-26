@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     unoptimized: true, // Required for static export
   },
   // If your repo is "Math4ML", your URL is username.github.io/Math4ML/
-  // basePath: '/Math4ML',
+  basePath: '/Fundamentals-of-ml',
 };
 
 export default nextConfig;
