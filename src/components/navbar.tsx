@@ -26,11 +26,13 @@ export function Navbar() {
     return acc
   }, {} as Record<string, typeof chapters>)
 
-  const sortedSubjects = Object.keys(subjectsMap).sort((a, b) => {
-    const aIndex = subjectsMap[a][0]?.subjectIndex ?? 999
-    const bIndex = subjectsMap[b][0]?.subjectIndex ?? 999
-    return aIndex - bIndex
-  })
+  const sortedSubjects = Object.keys(subjectsMap)
+    .filter(subject => subject !== 'conclusion')
+    .sort((a, b) => {
+      const aIndex = subjectsMap[a][0]?.subjectIndex ?? 999
+      const bIndex = subjectsMap[b][0]?.subjectIndex ?? 999
+      return aIndex - bIndex
+    })
 
   const currentSubject = chapters.find(c => c.permalink === pathname)?.subject || sortedSubjects[0]
   const [openSubjects, setOpenSubjects] = React.useState<string[]>([currentSubject])

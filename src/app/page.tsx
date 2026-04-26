@@ -23,13 +23,22 @@ export default function Home() {
     return acc
   }, {} as Record<string, typeof chapters>)
 
-  const sortedSubjects = Object.keys(subjectsMap).sort((a, b) => {
-    const aIndex = subjectsMap[a][0]?.subjectIndex ?? 999
-    const bIndex = subjectsMap[b][0]?.subjectIndex ?? 999
-    return aIndex - bIndex
+  const sortedSubjects = Object.keys(subjectsMap)
+    .filter(subject => subject !== 'conclusion')
+    .sort((a, b) => {
+      const aIndex = subjectsMap[a][0]?.subjectIndex ?? 999
+      const bIndex = subjectsMap[b][0]?.subjectIndex ?? 999
+      return aIndex - bIndex
+    })
+
+  const sortedChapters = [...chapters].sort((a, b) => {
+    if (a.subjectIndex !== b.subjectIndex) {
+      return (a.subjectIndex ?? 999) - (b.subjectIndex ?? 999)
+    }
+    return (a.order ?? 999) - (b.order ?? 999)
   })
 
-  const firstChapter = chapters[0]?.permalink || '#'
+  const firstChapter = sortedChapters[0]?.permalink || '#'
 
   return (
     <div className="space-y-24 py-10">
@@ -53,7 +62,7 @@ export default function Home() {
             Start Learning <ArrowRight className="w-4 h-4" />
           </Link>
           <Link 
-            href="/chapters/linear-algebra/linear-algebra"
+            href="/chapters/linear-algebra/linear_algebra"
             className="h-14 px-8 rounded-full border border-border font-bold flex items-center gap-2 hover:bg-accent transition-all"
           >
             Explore Curriculum

@@ -52,12 +52,14 @@ export function SidebarContent({ pathname, openSubjects, setOpenSubjects }: Side
     group.sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
   })
 
-  // Sort subjects by their pedagogical index
-  const sortedSubjects = Object.keys(subjectsMap).sort((a, b) => {
-    const aIndex = subjectsMap[a][0]?.subjectIndex ?? 999
-    const bIndex = subjectsMap[b][0]?.subjectIndex ?? 999
-    return aIndex - bIndex
-  })
+  // Sort subjects by their pedagogical index, filtering out irrelevant ones
+  const sortedSubjects = Object.keys(subjectsMap)
+    .filter(subject => subject !== 'conclusion')
+    .sort((a, b) => {
+      const aIndex = subjectsMap[a][0]?.subjectIndex ?? 999
+      const bIndex = subjectsMap[b][0]?.subjectIndex ?? 999
+      return aIndex - bIndex
+    })
 
   return (
     <Accordion 
