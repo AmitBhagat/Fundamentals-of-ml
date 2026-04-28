@@ -6,7 +6,7 @@ estimated_time: "25 min"
 prerequisites: ["Foundations", "Calculus", "Probability Basics"]
 ---
 
-<h1 align="center"> Chapter 118: Linear & Logistic Blueprints </h1>
+<h1 align="center"> Chapter 117: Linear & Logistic Blueprints </h1>
 
 ---
 
@@ -25,7 +25,7 @@ prerequisites: ["Foundations", "Calculus", "Probability Basics"]
 ## Analogy
 
 Imagine you are a **Real Estate Appraiser**. You have two tasks:
-1. **Linear Regression:** You need to estimate the *exact price* of a house. You look at features (sq ft, age) and try to fit a "Straight Plane" through the data. If a house has 100 more sq ft, the price goes up by exactly $\$10,000$. It's continuous and predictable.
+1. **Linear Regression:** You need to estimate the *exact price* of a house. You look at features (sq ft, age) and try to fit a "Straight Plane" through the data. If a house has 100 more sq ft, the price goes up by exactly \$10,000. It's continuous and predictable.
 2. **Logistic Regression:** You need to decide if a house is a "Luxury Mansion" or a "Standard Home." This isn't a price; it's a **Decision**. You draw a "Line in the Sand" (the Boundary). If a house is on the right of the line, it's luxury; on the left, it's standard. 
 
 Linear is about **Measurement** (the Ruler); Logistic is about **Classification** (the Gatekeeper). One gives you a value; the other gives you a probability.
@@ -71,7 +71,7 @@ A model predicts house prices based on Square Footage ($x_1$) and Age ($x_2$).
 $$\hat{y} = (200 \times 2000) + (-500 \times 10) + 50,000$$
 1. $400,000 - 5,000 + 50,000 = 445,000$.
 
-**The Story:** The model predicts the house is worth $\$445,000$. Note how $w_2$ is negative—it acts as a "Depreciation" factor.
+**The Story:** The model predicts the house is worth \$445,000. Note how $w_2$ is negative—it acts as a "Depreciation" factor.
 
 ### Example 2: Logistic Probability (The Squish)
 

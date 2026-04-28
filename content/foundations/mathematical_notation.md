@@ -6,7 +6,7 @@ estimated_time: "20 min"
 prerequisites: ["Foundations", "Basic Algebra"]
 ---
 
-<h1 align="center"> Chapter 107: Mathematical Notation </h1>
+<h1 align="center"> Chapter 5: Mathematical Notation </h1>
 
 ---
 

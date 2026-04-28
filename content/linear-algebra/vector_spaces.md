@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 7: Vector Spaces </h1>
+---
+title: "Vector Spaces"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 27: Vector Spaces </h1>
 
 ***
 

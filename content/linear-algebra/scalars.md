@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 5: Scalars </h1>
+---
+title: "Scalars"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 24: Scalars </h1>
 
 ---
 

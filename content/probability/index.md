@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 33: Probability </h1>
+---
+title: "The Fog of Uncertainty: Introduction to Probability"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 40: The Fog of Uncertainty: Introduction to Probability</h1>
 
 ***
 

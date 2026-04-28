@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 55: Bias-Variance Tradeoff </h1>
+---
+title: "Bias-Variance Tradeoff"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 62: Bias-Variance Tradeoff </h1>
 
 ---
 

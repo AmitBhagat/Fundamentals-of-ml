@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 44: Law of Large Numbers </h1>
+---
+title: "Law of Large Numbers"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 49: Law of Large Numbers </h1>
 
 ---
 

@@ -6,7 +6,7 @@ estimated_time: "25 min"
 prerequisites: ["Linear Algebra", "Matrices", "Foundations"]
 ---
 
-<h1 align="center"> Chapter 113: Adjacency & Laplacian Math </h1>
+<h1 align="center"> Chapter 125: Adjacency & Laplacian Math </h1>
 
 ---
 

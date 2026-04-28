@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 72: Mutual Information </h1>
+---
+title: "Mutual Information"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 81: Mutual Information </h1>
 
 ---
 

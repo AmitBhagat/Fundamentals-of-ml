@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 56: Types of Hypothesis (H0 vs </h1>
+---
+title: "Types of Hypothesis (H0 vs"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 74: Types of Hypothesis (H0 vs </h1>
 
 ---
 
@@ -68,7 +75,7 @@ Always remember: $H_0$ is the "innocent until proven guilty" stance. You assume 
 
 ### 1. Budgeting for the shagun
 
-**The Story:** The community standard for a wedding gift in your circle is $\$100$. You want to test if a specific group of friends is actually cheaper than the average.
+**The Story:** The community standard for a wedding gift in your circle is \$100. You want to test if a specific group of friends is actually cheaper than the average.
 
 - $H_0: \mu = 100$
 - $H_a: \mu < 100$

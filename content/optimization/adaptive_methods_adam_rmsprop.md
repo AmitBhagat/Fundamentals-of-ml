@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 81: Adaptive Methods (Adam, RMSProp) </h1>
+---
+title: "Adaptive Methods (Adam, RMSProp)"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 84: Adaptive Methods (Adam, RMSProp) </h1>
 
 ---
 

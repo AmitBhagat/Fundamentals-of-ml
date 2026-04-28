@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 24: Derivatives </h1>
+---
+title: "Derivatives"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 33: Derivatives </h1>
 
 ---
 

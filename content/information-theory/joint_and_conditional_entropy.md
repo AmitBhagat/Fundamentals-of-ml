@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 71: Joint and Conditional Entropy </h1>
+---
+title: "Joint and Conditional Entropy"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 79: Joint and Conditional Entropy </h1>
 
 ---
 

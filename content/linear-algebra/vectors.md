@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 6: Vectors </h1>
+---
+title: "Vectors"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 28: Vectors </h1>
 
 ***
 

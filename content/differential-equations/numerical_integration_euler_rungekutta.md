@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 101: Numerical Integration (Euler, Runge-Kutta) </h1>
+---
+title: "Numerical Integration (Euler, Runge-Kutta)"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 109: Numerical Integration (Euler, Runge-Kutta) </h1>
 
 ---
 

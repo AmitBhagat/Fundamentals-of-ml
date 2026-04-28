@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 68: Information Theory </h1>
+---
+title: "The Currency of Information: Introduction to Information Theory"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 75: The Currency of Information: Introduction to Information Theory</h1>
 
 ***
 

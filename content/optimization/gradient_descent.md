@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 76: Gradient Descent </h1>
+---
+title: "Gradient Descent"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 87: Gradient Descent </h1>
 
 ---
 

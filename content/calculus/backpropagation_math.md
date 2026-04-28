@@ -6,7 +6,7 @@ estimated_time: "25 min"
 prerequisites: ["Chain Rule", "Partial Derivatives"]
 ---
 
-# Backpropagation Math
+<h1 align="center"> Chapter 30: Backpropagation Math </h1>
 
 ***
 

@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 34: Random Variables </h1>
+---
+title: "Random Variables"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 55: Random Variables </h1>
 
 ---
 

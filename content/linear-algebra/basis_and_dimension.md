@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 9: Basis and Dimension </h1>
+---
+title: "Basis and Dimension"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 11: Basis and Dimension </h1>
 
 ***
 

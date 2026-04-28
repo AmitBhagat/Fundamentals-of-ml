@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 94: Sets, Relations, and Functions </h1>
+---
+title: "Sets, Relations, and Functions"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 106: Sets, Relations, and Functions </h1>
 
 ---
 

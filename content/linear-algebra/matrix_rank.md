@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 17: Matrix Rank </h1>
+---
+title: "Matrix Rank"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 20: Matrix Rank </h1>
 
 ***
 

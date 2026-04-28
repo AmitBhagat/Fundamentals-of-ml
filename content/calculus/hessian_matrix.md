@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 29: Hessian Matrix </h1>
+---
+title: "Hessian Matrix"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 35: Hessian Matrix </h1>
 
 ---
 

@@ -78,7 +78,7 @@ export function SidebarContent({ pathname, openSubjects, setOpenSubjects }: Side
               {subject.replace(/-/g, ' ')}
             </div>
           </AccordionTrigger>
-          <AccordionContent className="pt-1 pb-2">
+          <AccordionContent className="pt-1 pb-2 [&_a]:no-underline">
             <ul className="space-y-1.5 ml-8 border-l border-border/50 pl-4">
               {subjectsMap[subject].map((chapter) => (
                 <li key={chapter.permalink}>

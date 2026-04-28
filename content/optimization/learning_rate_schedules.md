@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 82: Learning Rate Schedules </h1>
+---
+title: "Learning Rate Schedules"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 88: Learning Rate Schedules </h1>
 
 ---
 

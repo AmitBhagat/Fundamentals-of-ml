@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 18: Orthogonality and Projections </h1>
+---
+title: "Orthogonality and Projections"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 21: Orthogonality and Projections </h1>
 
 ***
 

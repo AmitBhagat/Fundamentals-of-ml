@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 86: Numerical Methods </h1>
+---
+title: "The Digital Forge: Introduction to Numerical Methods"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 95: The Digital Forge: Introduction to Numerical Methods</h1>
 
 ***
 

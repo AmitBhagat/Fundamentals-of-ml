@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 49: Markov Chains </h1>
+---
+title: "Markov Chains"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 50: Markov Chains </h1>
 
 ---
 

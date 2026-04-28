@@ -6,7 +6,7 @@ estimated_time: "30 min"
 prerequisites: ["Foundations", "Backpropagation Math", "MDP Dynamics"]
 ---
 
-<h1 align="center"> Chapter 117: Policy Gradients </h1>
+<h1 align="center"> Chapter 123: Policy Gradients </h1>
 
 ---
 

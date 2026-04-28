@@ -6,7 +6,7 @@ estimated_time: "20 min"
 prerequisites: ["Foundations", "Matrices", "Dot Product"]
 ---
 
-<h1 align="center"> Chapter 111: Convolutional Geometry </h1>
+<h1 align="center"> Chapter 114: Convolutional Geometry </h1>
 
 ---
 

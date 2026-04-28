@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 89: Condition Number </h1>
+---
+title: "Condition Number"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 97: Condition Number </h1>
 
 ---
 

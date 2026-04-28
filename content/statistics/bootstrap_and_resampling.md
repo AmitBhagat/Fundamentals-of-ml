@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 65: Bootstrap and Resampling </h1>
+---
+title: "Bootstrap and Resampling"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 63: Bootstrap and Resampling </h1>
 
 ---
 

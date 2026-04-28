@@ -6,7 +6,7 @@ estimated_time: "5 min"
 prerequisites: []
 ---
 
-# Reinforcement Learning: The Architecture of Data
+<h1 align="center"> Chapter 120: Reinforcement Learning: The Architecture of Intelligence</h1>
 
 
 

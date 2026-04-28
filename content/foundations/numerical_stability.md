@@ -6,7 +6,7 @@ estimated_time: "25 min"
 prerequisites: ["Floating-Point Representation", "Logarithms", "Precision Limits"]
 ---
 
-<h1 align="center"> Chapter 88: Numerical Stability </h1>
+<h1 align="center"> Chapter 6: Numerical Stability </h1>
 
 ---
 

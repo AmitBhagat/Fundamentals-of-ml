@@ -38,15 +38,15 @@ export default defineConfig({
 
           const SUBJECT_ORDER = [
             'foundations',
-            'discrete-math',
             'linear-algebra',
-            'numerical-methods',
             'calculus',
-            'differential-equations',
             'probability',
             'statistics',
             'information-theory',
             'optimization',
+            'numerical-methods',
+            'discrete-math',
+            'differential-equations',
             'ml-architect',
             'reinforcement-learning',
             'graph-ml',

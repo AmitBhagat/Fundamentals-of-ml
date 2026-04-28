@@ -6,7 +6,7 @@ estimated_time: "30 min"
 prerequisites: ["Foundations", "Entropy", "Fisher Information"]
 ---
 
-<h1 align="center"> Chapter 122: Information Geometry </h1>
+<h1 align="center"> Chapter 78: Information Geometry </h1>
 
 ---
 

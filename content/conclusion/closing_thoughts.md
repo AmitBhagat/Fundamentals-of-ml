@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 105: Closing Thoughts </h1>
+---
+title: "Closing Thoughts"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 128: Closing Thoughts </h1>
 
 ***
 

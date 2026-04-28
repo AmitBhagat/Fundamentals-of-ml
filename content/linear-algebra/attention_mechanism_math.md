@@ -6,7 +6,7 @@ estimated_time: "30 min"
 prerequisites: ["Linear Algebra", "Matrix Multiplication", "Softmax"]
 ---
 
-<h1 align="center"> Chapter 124: Attention Mechanism Math </h1>
+<h1 align="center"> Chapter 10: Attention Mechanism Math </h1>
 
 ---
 

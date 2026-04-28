@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 13: Matrix Multiplication </h1>
+---
+title: "Matrix Multiplication"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 19: Matrix Multiplication </h1>
 
 ***
 

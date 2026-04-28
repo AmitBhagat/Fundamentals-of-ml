@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 50: Monte Carlo Methods </h1>
+---
+title: "Monte Carlo Methods"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 52: Monte Carlo Methods </h1>
 
 ---
 

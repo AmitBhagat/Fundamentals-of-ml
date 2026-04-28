@@ -6,7 +6,7 @@ estimated_time: "25 min"
 prerequisites: ["Foundations", "Floating Point & Machine Epsilon"]
 ---
 
-<h1 align="center"> Chapter 108: Quantization Math </h1>
+<h1 align="center"> Chapter 7: Quantization Math </h1>
 
 ---
 

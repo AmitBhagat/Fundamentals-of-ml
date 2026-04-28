@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 8: Linear Independence </h1>
+---
+title: "Linear Independence"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 15: Linear Independence </h1>
 
 ***
 

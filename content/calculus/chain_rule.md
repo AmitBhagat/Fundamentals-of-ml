@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 27: Chain Rule </h1>
+---
+title: "Chain Rule"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 31: Chain Rule </h1>
 
 ---
 
@@ -78,7 +85,7 @@ The cost of the delivery ($y$) depends on the fuel consumed ($u$), which depends
   $$\frac{dy}{du} = 5$$
   $$\frac{dy}{dx} = 5 \cdot (2x + 2) = 10x + 10$$
   At a distance of $x = 3$ km: $\frac{dy}{dx} = 10(3) + 10 = 40$.
-- **The Story:** When the driver is 3km away, every additional kilometer added to their route increases your delivery bill by $40.
+- **The Story:** When the driver is 3km away, every additional kilometer added to their route increases your delivery bill by \$40.
 
 ### 3. The refill anxiety
 

@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 64: Confidence Intervals </h1>
+---
+title: "Confidence Intervals"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 65: Confidence Intervals </h1>
 
 ---
 

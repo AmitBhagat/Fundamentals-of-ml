@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 37: Cumulative Distribution Functions (CDF) </h1>
+---
+title: "Cumulative Distribution Functions (CDF)"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 45: Cumulative Distribution Functions (CDF) </h1>
 
 ---
 

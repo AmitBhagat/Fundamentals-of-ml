@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 32: Integral Calculus </h1>
+---
+title: "Integral Calculus"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 36: Integral Calculus </h1>
 
 ---
 

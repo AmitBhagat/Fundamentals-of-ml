@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 78: Convex Optimization </h1>
+---
+title: "Convex Optimization"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 86: Convex Optimization </h1>
 
 ---
 
@@ -99,7 +106,7 @@ $$2F - 6 = 0 \implies F = 3$$
 $$2\phi - 2 = 0 \implies \phi = 1$$
 We verify with the Hessian $H$:
 $$H = \begin{bmatrix} \frac{\partial^2 S}{\partial F^2} & \frac{\partial^2 S}{\partial F \partial \phi} \\ \frac{\partial^2 S}{\partial \phi \partial F} & \frac{\partial^2 S}{\partial \phi^2} \end{bmatrix} = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}$$
-**The Story:** The eigenvalues of $H$ are both $2$. Since $2 > 0$, the Hessian is positive definite. This confirms that applying exactly 3 units of force at a 1-radian angle is the uniquely quietest way to get to your snack.
+**The Story:** The eigenvalues of $H$ are both $2$. Since \$2 > 0$, the Hessian is positive definite. This confirms that applying exactly 3 units of force at a 1-radian angle is the uniquely quietest way to get to your snack.
 
 <div style="background-color: #fff5f5; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
 

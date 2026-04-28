@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 70: Entropy </h1>
+---
+title: "Entropy"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 77: Entropy </h1>
 
 ---
 

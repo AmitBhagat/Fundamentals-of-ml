@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 36: Probability Density Functions (PDF) </h1>
+---
+title: "Probability Density Functions (PDF)"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 53: Probability Density Functions (PDF) </h1>
 
 ---
 

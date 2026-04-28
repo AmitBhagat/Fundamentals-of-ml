@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 83: Constrained Optimization (Lagrange, KKT) </h1>
+---
+title: "Constrained Optimization (Lagrange, KKT)"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 85: Constrained Optimization (Lagrange, KKT) </h1>
 
 ---
 
@@ -19,7 +26,7 @@
 
 Think about the last time you went shopping for a **new water bottle**. In a perfect world, you want the "optimal" bottle—one that holds infinite water, weighs nothing, and costs zero dollars. But we don't live in a vacuum. You are operating under **constraints**.
 
-You have a budget (an equality constraint) and perhaps a size requirement where it must fit into your car's cup holder (an inequality constraint). Optimization in ML is rarely about finding the absolute peak of a mountain; it’s about finding the highest point you can reach while staying within the "fenced-in" area of what is actually possible. If you just look for the best bottle without constraints, you’ll end up with a $500 titanium flask that doesn't fit in your gym bag. Lagrange and KKT are the mathematical tools that let us balance our "wants" (the objective) with our "needs" (the constraints) to find a realistic solution.
+You have a budget (an equality constraint) and perhaps a size requirement where it must fit into your car's cup holder (an inequality constraint). Optimization in ML is rarely about finding the absolute peak of a mountain; it’s about finding the highest point you can reach while staying within the "fenced-in" area of what is actually possible. If you just look for the best bottle without constraints, you’ll end up with a \$500 titanium flask that doesn't fit in your gym bag. Lagrange and KKT are the mathematical tools that let us balance our "wants" (the objective) with our "needs" (the constraints) to find a realistic solution.
 
 ## The Math Link
 
@@ -48,7 +55,7 @@ To find the optimal point $\mathbf{x}^*$, the following must hold:
 **Link to Analogy:**
 
 - $f(\mathbf{x})$: Your desire for the "perfect" bottle (e.g., maximum volume).
-- $g_i(\mathbf{x})$: Hard requirements (e.g., the price **must** equal exactly your $20 gift card).
+- $g_i(\mathbf{x})$: Hard requirements (e.g., the price **must** equal exactly your \$20 gift card).
 - $\lambda, \mu$: The "shadow price" or the importance of the constraint. It represents how much your happiness would change if the constraint was loosened slightly.
 
 <div style="background-color: #f0fff4; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
@@ -134,7 +141,7 @@ $$
 
 ### Example 3: The "Gym Look" (Multiple Constraints)
 
-You want a bottle that looks aesthetic (represented by a score $A(x, y)$) but it must cost exactly $\$25$ and its width $y$ cannot exceed 5 inches to fit the gym treadmill rack.
+You want a bottle that looks aesthetic (represented by a score $A(x, y)$) but it must cost exactly \$25 and its width $y$ cannot exceed 5 inches to fit the gym treadmill rack.
 
 **Setup:**
 Maximize $f(x, y) = xy$ subject to $g(x, y) = 5x + 2y - 25 = 0$ and $h(x, y) = y - 5 \leq 0$.

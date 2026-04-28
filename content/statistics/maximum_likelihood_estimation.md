@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 53: Maximum Likelihood Estimation </h1>
+---
+title: "Maximum Likelihood Estimation"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 68: Maximum Likelihood Estimation </h1>
 
 ---
 

@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 102: Stochastic Differential Equations </h1>
+---
+title: "Stochastic Differential Equations"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 112: Stochastic Differential Equations </h1>
 
 ---
 

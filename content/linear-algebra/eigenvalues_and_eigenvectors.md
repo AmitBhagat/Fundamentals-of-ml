@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 19: Eigenvalues and Eigenvectors </h1>
+---
+title: "Eigenvalues and Eigenvectors"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 14: Eigenvalues and Eigenvectors </h1>
 
 ***
 

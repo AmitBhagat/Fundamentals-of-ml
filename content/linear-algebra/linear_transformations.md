@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 14: Linear Transformations </h1>
+---
+title: "Linear Transformations"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 16: Linear Transformations </h1>
 
 ***
 

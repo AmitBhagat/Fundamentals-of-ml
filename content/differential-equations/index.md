@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 99: Differential Equations </h1>
+---
+title: "The Dynamics of the World: Introduction to Differential Equations"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 108: The Dynamics of the World: Introduction to Differential Equations</h1>
 
 ***
 

@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 23: Calculus </h1>
+---
+title: "The Language of Change: Introduction to Calculus"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 29: The Language of Change: Introduction to Calculus</h1>
 
 ***
 

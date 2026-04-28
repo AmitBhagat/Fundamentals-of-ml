@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 21: SVD </h1>
+---
+title: "SVD"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 25: SVD </h1>
 ***
 
 

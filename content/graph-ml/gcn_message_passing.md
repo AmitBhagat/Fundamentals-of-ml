@@ -6,7 +6,7 @@ estimated_time: "25 min"
 prerequisites: ["Adjacency & Laplacian Math", "Neural Networks", "Foundations"]
 ---
 
-<h1 align="center"> Chapter 114: GCN & Message Passing </h1>
+<h1 align="center"> Chapter 126: GCN & Message Passing </h1>
 
 ---
 

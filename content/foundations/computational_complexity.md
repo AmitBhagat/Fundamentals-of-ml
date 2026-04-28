@@ -6,7 +6,7 @@ estimated_time: "25 min"
 prerequisites: ["Foundations", "Basic Algebra"]
 ---
 
-<h1 align="center"> Chapter 106: Computational Complexity </h1>
+<h1 align="center"> Chapter 2: Computational Complexity </h1>
 
 ---
 

@@ -6,7 +6,7 @@ estimated_time: "5 min"
 prerequisites: []
 ---
 
-# Graph Ml: The Architecture of Data
+<h1 align="center"> Chapter 124: Graph ML: The Architecture of Connectivity</h1>
 
 
 

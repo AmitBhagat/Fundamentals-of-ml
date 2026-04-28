@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 25: Partial Derivatives </h1>
+---
+title: "Partial Derivatives"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 38: Partial Derivatives </h1>
 
 ---
 
@@ -71,7 +78,7 @@ $$\frac{\partial B}{\partial d} = m + 0.02d$$
 $$\text{At } d=1000, m=12: 12 + 0.02(1000) = 12 + 20 = 32$$
 
 **The Story:**
-This result ($32$) tells you that for every $\$1$ increase in your deposit amount, your balance increases by $\$32$ over the year (due to the compounding-like effect of the squared term). This tells you that missing deposits are a high-priority fix.
+This result ($32$) tells you that for every \$1 increase in your deposit amount, your balance increases by \$32 over the year (due to the compounding-like effect of the squared term). This tells you that missing deposits are a high-priority fix.
 
 ### Example 3: The thrill of interest credit
 

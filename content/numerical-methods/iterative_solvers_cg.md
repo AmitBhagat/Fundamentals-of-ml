@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 91: Iterative Solvers (CG) </h1>
+---
+title: "Iterative Solvers (CG)"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 99: Iterative Solvers (CG) </h1>
 
 ---
 

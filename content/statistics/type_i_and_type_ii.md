@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 58: Type I and Type II </h1>
+---
+title: "Type I and Type II"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 73: Type I and Type II </h1>
 
 ---
 

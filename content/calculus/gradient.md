@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 26: Gradient </h1>
+---
+title: "Gradient"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 34: Gradient </h1>
 
 ---
 

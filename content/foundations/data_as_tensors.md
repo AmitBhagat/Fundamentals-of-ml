@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 2: Data as Tensors </h1>
+---
+title: "Data as Tensors"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 4: Data as Tensors </h1>
 
 ---
 
@@ -63,7 +70,7 @@ A tensor isn't just a "box of numbers." It’s a map. The "Rank" of the tensor t
 You approach the reader to check if you have enough for the train. The machine returns a single, isolated value. This is a 0th-order tensor.
 
 **The Setup:**
-Your current balance $b$ is $\$12.50$. You need to add a top-up $x$ of $\$20.00$.
+Your current balance $b$ is \$12.50. You need to add a top-up $x$ of \$20.00.
 
 **The Calculation:**
 $$B_{new} = b + x$$

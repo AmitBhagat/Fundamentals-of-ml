@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 85: Proximal Methods and ADMM </h1>
+---
+title: "Proximal Methods and ADMM"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 91: Proximal Methods and ADMM </h1>
 
 ---
 

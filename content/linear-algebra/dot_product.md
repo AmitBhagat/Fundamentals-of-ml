@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 10: Dot Product </h1>
+---
+title: "Dot Product"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 13: Dot Product </h1>
 
 ***
 

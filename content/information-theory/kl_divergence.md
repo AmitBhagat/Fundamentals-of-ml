@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 74: KL Divergence </h1>
+---
+title: "KL Divergence"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 80: KL Divergence </h1>
 
 ---
 

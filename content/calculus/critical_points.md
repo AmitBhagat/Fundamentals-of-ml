@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 31: Critical Points </h1>
+---
+title: "Critical Points"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 32: Critical Points </h1>
 
 ---
 

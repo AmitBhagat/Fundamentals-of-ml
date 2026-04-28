@@ -6,7 +6,7 @@ estimated_time: "30 min"
 prerequisites: ["Foundations", "Probability Density Functions", "Calculus"]
 ---
 
-<h1 align="center"> Chapter 121: Generative Manifolds </h1>
+<h1 align="center"> Chapter 116: Generative Manifolds </h1>
 
 ---
 

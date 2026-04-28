@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 4: Linear Algebra </h1>
+---
+title: "The Skeleton of the Machine: Introduction to Linear Algebra"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 9: The Skeleton of the Machine: Introduction to Linear Algebra</h1>
 
 ***
 

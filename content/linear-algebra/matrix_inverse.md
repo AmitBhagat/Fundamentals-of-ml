@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 15: Matrix Inverse </h1>
+---
+title: "Matrix Inverse"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 18: Matrix Inverse </h1>
 
 ***
 

@@ -5,8 +5,9 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true, // Required for static export
   },
-  // If your repo is "Math4ML", your URL is username.github.io/Math4ML/
-  basePath: '/Fundamentals-of-ml',
+  // Only apply basePath in production (e.g., GitHub Pages deployment)
+  // Local development will remain at the root '/'
+  basePath: process.env.NODE_ENV === 'production' ? '/Fundamentals-of-ml' : undefined,
 };
 
 export default nextConfig;

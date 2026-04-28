@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 80: Momentum and Nesterov </h1>
+---
+title: "Momentum and Nesterov"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 90: Momentum and Nesterov </h1>
 
 ---
 

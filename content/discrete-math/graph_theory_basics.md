@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 96: Graph Theory Basics </h1>
+---
+title: "Graph Theory Basics"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 105: Graph Theory Basics </h1>
 
 ---
 

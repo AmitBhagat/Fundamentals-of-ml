@@ -6,7 +6,7 @@ estimated_time: "25 min"
 prerequisites: ["Calculus", "Partial Derivatives", "Foundations"]
 ---
 
-<h1 align="center"> Chapter 123: Loss Landscapes </h1>
+<h1 align="center"> Chapter 89: Loss Landscapes </h1>
 
 ---
 

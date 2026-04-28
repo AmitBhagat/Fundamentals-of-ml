@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 20: Positive Definite Matrices </h1>
+---
+title: "Positive Definite Matrices"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 23: Positive Definite Matrices </h1>
 
 ***
 

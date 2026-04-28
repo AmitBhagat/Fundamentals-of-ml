@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 51: Statistics </h1>
+---
+title: "The Judge of Evidence: Introduction to Statistics"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 58: The Judge of Evidence: Introduction to Statistics</h1>
 
 ***
 

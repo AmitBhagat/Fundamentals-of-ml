@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 45: Central Limit Theorem </h1>
+---
+title: "Central Limit Theorem"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 42: Central Limit Theorem </h1>
 
 ---
 

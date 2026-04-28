@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 90: Matrix Decompositions (LU, QR, Cholesky) </h1>
+---
+title: "Matrix Decompositions (LU, QR, Cholesky)"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 100: Matrix Decompositions (LU, QR, Cholesky) </h1>
 
 ---
 

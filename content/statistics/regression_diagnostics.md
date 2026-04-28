@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 67: Regression Diagnostics </h1>
+---
+title: "Regression Diagnostics"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 70: Regression Diagnostics </h1>
 
 ---
 

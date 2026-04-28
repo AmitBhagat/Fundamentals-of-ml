@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 28: Jacobian Matrix </h1>
+---
+title: "Jacobian Matrix"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 37: Jacobian Matrix </h1>
 
 ---
 

@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 62: ANOVA </h1>
+---
+title: "ANOVA"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 60: ANOVA </h1>
 
 ---
 

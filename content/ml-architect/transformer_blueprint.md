@@ -6,7 +6,7 @@ estimated_time: "30 min"
 prerequisites: ["Foundations", "Softmax", "Matrix Multiplication"]
 ---
 
-<h1 align="center"> Chapter 112: Transformer Blueprint </h1>
+<h1 align="center"> Chapter 119: Transformer Blueprint </h1>
 
 ---
 

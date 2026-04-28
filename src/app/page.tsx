@@ -23,6 +23,11 @@ export default function Home() {
     return acc
   }, {} as Record<string, typeof chapters>)
 
+  // Sort chapters within each subject by order
+  Object.values(subjectsMap).forEach(group => {
+    group.sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
+  })
+
   const sortedSubjects = Object.keys(subjectsMap)
     .filter(subject => subject !== 'conclusion')
     .sort((a, b) => {

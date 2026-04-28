@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 1: Introduction </h1>
+---
+title: "The Architect's Blueprint: Why Machine Learning Needs Math"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 1: The Architect's Blueprint: Why Machine Learning Needs Math</h1>
 
 ***
 

@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 12: Matrices </h1>
+---
+title: "Matrices"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 17: Matrices </h1>
 
 ***
 

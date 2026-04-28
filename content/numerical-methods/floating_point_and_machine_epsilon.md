@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 87: Floating Point and Machine Epsilon </h1>
+---
+title: "Floating Point and Machine Epsilon"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 98: Floating Point and Machine Epsilon </h1>
 
 ---
 

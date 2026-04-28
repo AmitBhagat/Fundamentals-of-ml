@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 93: Discrete Mathematics </h1>
+---
+title: "The Logic of Connections: Introduction to Discrete Mathematics"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 102: The Logic of Connections: Introduction to Discrete Mathematics</h1>
 
 ***
 

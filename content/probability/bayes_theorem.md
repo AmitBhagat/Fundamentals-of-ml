@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 46: Bayes Theorem </h1>
+---
+title: "Bayes Theorem"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 41: Bayes Theorem </h1>
 
 ---
 

@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 30: Taylor Series </h1>
+---
+title: "Taylor Series"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 39: Taylor Series </h1>
 
 ---
 

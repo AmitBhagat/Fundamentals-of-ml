@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 98: Boolean Logic and Complexity </h1>
+---
+title: "Boolean Logic and Complexity"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 103: Boolean Logic and Complexity </h1>
 
 ---
 

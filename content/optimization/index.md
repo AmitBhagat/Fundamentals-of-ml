@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 75: Optimization </h1>
+---
+title: "The Path to the Peak: Introduction to Optimization"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 83: The Path to the Peak: Introduction to Optimization</h1>
 
 ***
 

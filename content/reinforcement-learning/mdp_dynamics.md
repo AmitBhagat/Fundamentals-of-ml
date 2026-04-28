@@ -6,7 +6,7 @@ estimated_time: "25 min"
 prerequisites: ["Foundations", "Probability Basics"]
 ---
 
-<h1 align="center"> Chapter 116: MDP Dynamics </h1>
+<h1 align="center"> Chapter 122: MDP Dynamics </h1>
 
 ---
 

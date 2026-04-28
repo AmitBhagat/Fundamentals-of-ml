@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 100: Ordinary Differential Equations </h1>
+---
+title: "Ordinary Differential Equations"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 110: Ordinary Differential Equations </h1>
 
 ---
 

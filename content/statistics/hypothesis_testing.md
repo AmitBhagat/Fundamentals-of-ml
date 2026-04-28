@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 57: Hypothesis Testing </h1>
+---
+title: "Hypothesis Testing"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 66: Hypothesis Testing </h1>
 
 ---
 
@@ -87,7 +94,7 @@ The seller claims the bike reaches 60 mph in 4 seconds. You perform 5 test runs 
 $$t = \frac{4.5 - 4.0}{0.4 / \sqrt{5}} = \frac{0.5}{0.1788} \approx 2.79$$
 
 **The Story:**
-Checking a T-table for $df = 4$, the critical value is $2.132$. Since $2.79 > 2.132$, the bike is significantly slower than claimed. The "clue" is strong enough to reject the seller's boast.
+Checking a T-table for $df = 4$, the critical value is $2.132$. Since \$2.79 > 2.132$, the bike is significantly slower than claimed. The "clue" is strong enough to reject the seller's boast.
 
 ### Example 3: The Paperwork Headache
 
@@ -97,7 +104,7 @@ The seller says the title transfer takes 2 days on average. You talk to 15 peopl
 $$t = \frac{3 - 2}{2 / \sqrt{15}} = \frac{1}{0.516} \approx 1.93$$
 
 **The Story:**
-For $df = 14$ at $\alpha = 0.05$, the critical value is $2.145$. Since $1.93 < 2.145$, the result is not "statistically significant." While 3 days is more than 2, the high variance ($s=2$) means this could easily be a coincidence. You don't have enough evidence to call the seller a liar yet.
+For $df = 14$ at $\alpha = 0.05$, the critical value is $2.145$. Since \$1.93 < 2.145$, the result is not "statistically significant." While 3 days is more than 2, the high variance ($s=2$) means this could easily be a coincidence. You don't have enough evidence to call the seller a liar yet.
 
 ---
 

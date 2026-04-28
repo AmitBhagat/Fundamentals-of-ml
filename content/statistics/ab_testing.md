@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 63: A/B Testing </h1>
+---
+title: "A/B Testing"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 59: A/B Testing </h1>
 
 ---
 

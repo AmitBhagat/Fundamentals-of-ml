@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 104: The Road Ahead </h1>
+---
+title: "Closing Thoughts: The Soul of the Math"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 127: Closing Thoughts: The Soul of the Math</h1>
 
 ***
 

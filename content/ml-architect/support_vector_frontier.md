@@ -6,7 +6,7 @@ estimated_time: "25 min"
 prerequisites: ["Foundations", "Matrices", "Dot Product"]
 ---
 
-<h1 align="center"> Chapter 119: Support Vector Frontier </h1>
+<h1 align="center"> Chapter 118: Support Vector Frontier </h1>
 
 ---
 

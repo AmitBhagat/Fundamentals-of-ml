@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 88: Numerical Stability </h1>
+---
+title: "Numerical Stability"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 101: Numerical Stability </h1>
 
 ---
 

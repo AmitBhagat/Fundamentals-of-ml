@@ -6,7 +6,7 @@ estimated_time: "5 min"
 prerequisites: []
 ---
 
-# Ml Architect: The Architecture of Data
+<h1 align="center"> Chapter 113: ML Architect: The Architecture of Data</h1>
 
 
 

@@ -6,7 +6,7 @@ estimated_time: "25 min"
 prerequisites: ["Foundations", "MDP Dynamics", "Basic Probability"]
 ---
 
-<h1 align="center"> Chapter 115: The Bellman Equation </h1>
+<h1 align="center"> Chapter 121: The Bellman Equation </h1>
 
 ---
 

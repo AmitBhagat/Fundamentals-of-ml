@@ -6,7 +6,7 @@ estimated_time: "20 min"
 prerequisites: ["Foundations", "Probability Basics", "Entropy"]
 ---
 
-<h1 align="center"> Chapter 120: Decision Trees Geometry </h1>
+<h1 align="center"> Chapter 115: Decision Trees Geometry </h1>
 
 ---
 

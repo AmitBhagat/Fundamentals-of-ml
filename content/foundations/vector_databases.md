@@ -6,7 +6,7 @@ estimated_time: "25 min"
 prerequisites: ["Foundations", "Vectors", "Cosine Similarity"]
 ---
 
-<h1 align="center"> Chapter 109: Vector Databases </h1>
+<h1 align="center"> Chapter 8: Vector Databases </h1>
 
 ---
 

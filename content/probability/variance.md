@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 42: Variance </h1>
+---
+title: "Variance"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 57: Variance </h1>
 
 ---
 

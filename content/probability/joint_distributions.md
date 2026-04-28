@@ -1,4 +1,11 @@
-<h1 align="center"> Chapter 38: Joint Distributions </h1>
+---
+title: "Joint Distributions"
+description: "Mastering the mathematical foundations of artificial intelligence."
+complexity: "Intermediate"
+estimated_time: "20 min"
+---
+
+<h1 align="center"> Chapter 48: Joint Distributions </h1>
 
 ---
 
