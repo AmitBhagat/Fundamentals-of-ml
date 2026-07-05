@@ -1,128 +1,115 @@
 ---
 title: "Vector Norms (L1, L2)"
-description: "Mastering the mathematical foundations of artificial intelligence."
-complexity: "Intermediate"
-estimated_time: "20 min"
+description: "Mathematical axioms of norms, L1 Manhattan and L2 Euclidean geometry, and regularization properties."
+complexity: "Advanced"
+estimated_time: "35 min"
+prerequisites: ["Scalars", "Vectors"]
 ---
 
 <h1 align="center"> Chapter 26: Vector Norms (L1, L2) </h1>
 
 ***
 
-
-
-
-
 <div style="background-color: #f0f7ff; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
 
 ### Prerequisite
-* **Vector Representation:** Understanding that a list of numbers (a vector) can represent various features of an object in a coordinate space.
-* **Absolute Values:** Knowing that the magnitude of a change matters more than the direction when calculating distance.
-* **Summation Notation:** Familiarity with the $\sum$ symbol to aggregate values across multiple dimensions.
+* **Vectors:** Understanding coordinate representations of points in space.
+* **Calculus basics:** Familiarity with derivatives and gradients.
 
 </div>
 
+## 1. Conceptual Hook
 
-## Analogy
-When you’re hosting a house party, the "size" of your food order isn't just one number; it’s a measurement of the total impact your guests will have on your kitchen. A vector norm is essentially a way to quantify the magnitude of a multi-dimensional problem—like food logistics—into a single, actionable value. 
+In machine learning, we are constantly trying to balance two opposing forces: making our models fit the training data, and keeping them simple enough to generalize to new, unseen data. To control the complexity of a model, we need a mathematical ruler that can measure the "size" or "magnitude" of the model's weight parameters. This ruler is a **vector norm**.
 
-Think of your guests as different variables. One guest might be extremely hungry, another might have strict dietary restrictions, and another might just be there for the drinks. Each guest adds a "dimension" of complexity to your order. The "Norm" is the mathematical ruler you use to summarize all that individual chaos into a single "total effort" score. Depending on whether you care about the total volume of food or the most extreme outliers among your guests, you’ll choose a different way to measure that "size."
+A vector norm collapses a multi-dimensional vector into a single real number representing its magnitude. Depending on which ruler we choose, we get vastly different learning behaviors. The **$L_1$ norm** (sum of absolute values) acts like a strict editor, forcing less important weights to become exactly zero, thereby selecting only the most vital features. The **$L_2$ norm** (Euclidean distance) acts like a stabilizer, shrinking all weights smoothly and preventing any single feature from dominating the network.
 
+---
 
-## The Math Link
-In a formal sense, a norm is a function $f: V \to \mathbb{R}$ that assigns a strictly positive length or size to all vectors in a vector space $V$ (except for the zero vector). For any vector $\mathbf{x} \in \mathbb{R}^n$, the $p$-norm is defined as:
+## 2. Formal Definition
 
-$$||\mathbf{x}||_p = \left( \sum_{i=1}^n |x_i|^p \right)^{1/p}$$
+Let $V$ be a vector space over a field $\mathbb{F}$ (where $\mathbb{F} \in \{\mathbb{R}, \mathbb{C}\}$). A **norm** on $V$ is a function $\|\cdot\|: V \to \mathbb{R}$ that satisfies the following three axioms for all $u, v \in V$ and all scalars $c \in \mathbb{F}$:
 
-Where:
-* $n$: The number of guests at your party (dimensions).
-* $x_i$: The specific "requirement" or value associated with guest $i$.
-* $||\mathbf{x}||$: The total "magnitude" of the food order.
+1.  **Non-negativity and Definiteness:**
+    $$\|v\| \ge 0 \quad \forall v \in V, \quad \text{and} \quad \|v\| = 0 \iff v = 0$$
+2.  **Absolute Homogeneity:**
+    $$\|c \cdot v\| = |c| \cdot \|v\|$$
+3.  **Triangle Inequality:**
+    $$\|u + v\| \le \|u\| + \|v\|$$
 
-### Derivation of L1 Norm (Manhattan Norm)
-For $p=1$, the formula simplifies to the sum of absolute values. We define the L1 norm for a vector $\mathbf{x} \in \mathbb{R}^n$ as:
+For a coordinate vector $x = [x_1, \dots, x_n]^T \in \mathbb{R}^n$, the family of **$L_p$ norms** for $p \ge 1$ is defined as:
+$$\|x\|_p = \left( \sum_{i=1}^n |x_i|^p \right)^{1/p}$$
 
-$$||\mathbf{x}||_1 = \sum_{i=1}^n |x_i|$$
+*   **The $L_1$ Norm (Manhattan or Taxicab Norm):** Obtained by setting $p=1$:
+    $$\|x\|_1 = \sum_{i=1}^n |x_i|$$
+*   **The $L_2$ Norm (Euclidean Norm):** Obtained by setting $p=2$:
+    $$\|x\|_2 = \sqrt{\sum_{i=1}^n x_i^2}$$
 
-In our analogy, this represents the **Total Food Volume**. If Guest A wants 3 slices and Guest B wants 2, you need 5 slices. You are simply summing up the individual magnitudes.
+---
 
-### Derivation of L2 Norm (Euclidean Norm)
-For $p=2$, we derive the standard distance formula. We define the L2 norm as:
+## 3. Illustrative Derivation
 
-$$||\mathbf{x}||_2 = \sqrt{\sum_{i=1}^n x_i^2}$$
+### Sparsity of $L_1$ vs. Smoothness of $L_2$
+Why does the $L_1$ norm produce sparse solutions (weights exactly zero) while the $L_2$ norm does not? We can understand this by looking at their gradients.
 
-This is derived from the Pythagorean theorem extended to $n$-dimensions. In our analogy, this represents the **Logistical Complexity**. Because we square the values before summing, a single guest with a massive, outlier order (e.g., 10 pizzas) creates a much larger "norm" than ten guests ordering one slice each.
+Let $w \in \mathbb{R}^n$ be the weight vector of a model.
+1.  **Gradient of the squared $L_2$ norm:**
+    Let $f_2(w) = \frac{1}{2} \|w\|_2^2 = \frac{1}{2} \sum_{i=1}^n w_i^2$. This function is differentiable everywhere:
+    $$\frac{\partial f_2}{\partial w_i} = w_i \implies \nabla_w \left( \frac{1}{2} \|w\|_2^2 \right) = w$$
+    As the weight $w_i$ gets closer to zero, the gradient $w_i$ also approaches zero. The update step under gradient descent becomes infinitesimally small:
+    $$w_i^{(t+1)} = w_i^{(t)} - \eta w_i^{(t)} = (1 - \eta) w_i^{(t)}$$
+    This shrinks the weights exponentially toward zero but never forces them to be exactly zero.
 
+2.  **Gradient of the $L_1$ norm:**
+    Let $f_1(w) = \|w\|_1 = \sum_{i=1}^n |w_i|$. This function is non-differentiable at $w_i = 0$. For $w_i \neq 0$:
+    $$\frac{\partial f_1}{\partial w_i} = \text{sign}(w_i) = \begin{cases} 1 & \text{if } w_i > 0 \\ -1 & \text{if } w_i < 0 \end{cases}$$
+    At $w_i = 0$, we must use the **subgradient**, which is the interval $[-1, 1]$.
+    Under gradient descent, the update step for $w_i \neq 0$ is:
+    $$w_i^{(t+1)} = w_i^{(t)} - \eta \cdot \text{sign}(w_i^{(t)})$$
+    Notice that the step size is constant ($\eta$) and does not shrink as $w_i$ approaches zero. This constant force pushes the weight directly to zero. Once a weight hits zero, the subgradient allows it to remain exactly zero if the loss gradient is not strong enough to pull it away. This explains why $L_1$ regularization performs feature selection.
 
-<div style="background-color: #f0fff4; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
+---
 
-**THE INTUITION**
-Think of L1 as the "Total Count" and L2 as the "Shortest Path." L1 cares about the sum of the parts, while L2 is sensitive to large individual values because it squares them, making outliers stand out.
+## 4. Concrete Examples
 
-</div>
+### Example 1: $L_1$ and $L_2$ Magnitude Comparison
+Let two weight vectors be $w_1 = \begin{bmatrix} 3 \\ 0 \\ 4 \end{bmatrix}$ (sparse, one feature active) and $w_2 = \begin{bmatrix} 2.5 \\ 2.5 \\ 2 \end{bmatrix}$ (dense, distributed weights).
+1.  **Compute $L_1$ Norms:**
+    $$\|w_1\|_1 = |3| + |0| + |4| = 7$$
+    $$\|w_2\|_1 = |2.5| + |2.5| + |2| = 7$$
+    Under $L_1$, both models have the same absolute parameter magnitude.
+2.  **Compute $L_2$ Norms:**
+    $$\|w_1\|_2 = \sqrt{3^2 + 0^2 + 4^2} = \sqrt{25} = 5$$
+    $$\|w_2\|_2 = \sqrt{2.5^2 + 2.5^2 + 2^2} = \sqrt{6.25 + 6.25 + 4} = \sqrt{16.5} \approx 4.06$$
+    The $L_2$ norm of $w_1$ is higher than $w_2$. Because $L_2$ squares the coordinates, it heavily penalizes large individual weight values ($3$ and $4$), showing that sparse configurations with larger values carry a higher $L_2$ penalty than distributed configurations.
 
+### Example 2: Triangle Inequality Numerical Check
+Let $u = \begin{bmatrix} 1 \\ -2 \end{bmatrix}$ and $v = \begin{bmatrix} 3 \\ 1 \end{bmatrix}$. Verify $\|u+v\|_1 \le \|u\|_1 + \|v\|_1$.
+1.  **Compute $u+v$:**
+    $$u+v = \begin{bmatrix} 1+3 \\ -2+1 \end{bmatrix} = \begin{bmatrix} 4 \\ -1 \end{bmatrix}$$
+2.  **Calculate Norms:**
+    $$\|u\|_1 = |1| + |-2| = 3$$
+    $$\|v\|_1 = |3| + |1| = 4$$
+    $$\|u+v\|_1 = |4| + |-1| = 5$$
+    Since $5 \le 3 + 4 = 7$, the triangle inequality holds.
 
+---
 
+## 5. Applied ML Context
 
+1.  **LASSO Regularization ($L_1$ Regularization):** Adding the $L_1$ norm of the weights to the loss function ($\mathcal{L}_{lasso} = \mathcal{L}_{data} + \lambda \|w\|_1$) performs automatic feature selection by forcing the weights of non-essential features to become exactly zero.
+2.  **Ridge Regularization ($L_2$ Regularization):** Adding the squared $L_2$ norm of the weights ($\mathcal{L}_{ridge} = \mathcal{L}_{data} + \lambda \|w\|_2^2$) prevents overfitting by shrinking the parameter weights towards zero, distributing the importance across features.
+3.  **Mean Absolute Error (MAE) Loss:** A loss function defined by the $L_1$ norm of the prediction error vector ($e = y - \hat{y}$): $\text{MAE} = \frac{1}{n} \|e\|_1$. MAE is robust to outliers because it does not square the error terms.
+4.  **Mean Squared Error (MSE) Loss:** A loss function defined by the squared $L_2$ norm of the prediction error vector: $\text{MSE} = \frac{1}{n} \|e\|_2^2$. MSE heavily penalizes large errors and is differentiable everywhere, making it highly compatible with standard gradient descent.
+5.  **Cosine Similarity:** The cosine of the angle between two vectors $u$ and $v$ is computed by dividing their dot product by the product of their $L_2$ norms: $\text{Sim}(u, v) = \frac{u^T v}{\|u\|_2 \|v\|_2}$. This normalizes the vectors to unit length, evaluating correlation independent of scale.
 
-## Let's Run the Numbers
+---
 
-### Example 1: Estimating how many pizzas to order (L1 Norm)
-We have a vector $\mathbf{x}$ representing the pizza slice requests of 4 guests: $\mathbf{x} = [3, 0, 5, 2]$. We need the L1 norm to find the total volume.
+## 6. Visual/Intuitive Summary
 
-**Calculation:**
-$$||\mathbf{x}||_1 = |3| + |0| + |5| + |2|$$
-$$||\mathbf{x}||_1 = 3 + 0 + 5 + 2 = 10$$
-
-**The Story:**
-The L1 norm tells you the absolute total. You don't care about the "geometry" of the hunger; you just need to know that 10 slices must exist in the house to satisfy the group. This is the most "honest" count of total resources required.
-
-### Example 2: Managing dietary preferences (L2 Norm)
-You have two groups of guests. Group A has three people who are slightly picky (level 2). Group B has one person who is extremely allergic to everything (level 6). 
-Vector $A = [2, 2, 2]$ and Vector $B = [6, 0, 0]$.
-
-**Calculation for Group B:**
-$$||B||_2 = \sqrt{6^2 + 0^2 + 0^2}$$
-$$||B||_2 = \sqrt{36} = 6$$
-
-**Calculation for Group A:**
-$$||A||_2 = \sqrt{2^2 + 2^2 + 2^2}$$
-$$||A||_2 = \sqrt{4 + 4 + 4} = \sqrt{12} \approx 3.46$$
-
-**The Story:**
-Even though both groups have a "Total Pickiness" (L1) of 6, the L2 norm for Group B is much higher (6 vs 3.46). The L2 norm warns you that Group B is a bigger logistical "risk" because the outlier (the severe allergy) dominates the calculation. It tells you that one extreme person is harder to manage than three mildly picky ones.
-
-### Example 3: The delivery delay (L1 vs L2 for Error)
-Your delivery driver provides a vector of "Minutes Late" for three different orders: $\mathbf{x} = [10, 0, 10]$. You want to calculate the "Total Disappointment" score.
-
-**L1 Calculation:**
-$$||\mathbf{x}||_1 = 10 + 0 + 10 = 20$$
-
-**L2 Calculation:**
-$$||\mathbf{x}||_2 = \sqrt{10^2 + 0^2 + 10^2} = \sqrt{200} \approx 14.14$$
-
-**The Story:**
-If you use L1, you see the total time lost (20 minutes). If you use L2, the "distance" from a perfect on-time delivery is roughly 14.14. In ML, using L2 here would punish the driver more heavily for a single 20-minute delay ($20^2=400$) than for two 10-minute delays ($10^2+10^2=200$), because L2 squares the "lateness."
-
-
-<div style="background-color: #fff5f5; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
-
-**Critical Insight:** L1 regularization (Lasso) produces sparse solutions, meaning it actively drives less important feature weights to exactly zero. L2 regularization (Ridge) only shrinks weights toward zero but rarely hits it. If you need feature selection, use L1; if you just want to prevent any single feature from having too much influence, use L2.
-
-</div>
-
-
-## ML Applications
-* **Lasso Regularization (L1):** Used in high-dimensional datasets to perform automatic feature selection by penalizing the absolute sum of weights, effectively zeroing out redundant predictors.
-* **Ridge Regularization (L2):** Adds a penalty equal to the square of the magnitude of coefficients to the loss function to prevent overfitting and improve numerical stability in Matrix Inversion.
-* **Mean Absolute Error (MAE):** A loss function based on the L1 norm that is robust to outliers, as it does not square the residual terms.
-* **Mean Squared Error (MSE):** A loss function based on the L2 norm (squared) that is mathematically advantageous for optimization because it is differentiable everywhere, unlike L1.
-* **Cosine Similarity:** Often involves L2 normalization of vectors where the dot product of two L2-normalized vectors represents the cosine of the angle between them, commonly used in Natural Language Processing for document similarity.
-
-
-<div style="background-color: #fffaf0; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
-
-**Debugging Tip:** If your model gradient is "jumping" or failing to converge near the minimum, check your loss function. L1 norms have a discontinuous derivative at zero, which can cause oscillations if your learning rate is too high.
-
-</div>
-
+A diagram should be placed here illustrating the unit spheres (contours of equal norm value) for the $L_1$ and $L_2$ norms in $\mathbb{R}^2$:
+*   Show a 2D Cartesian coordinate plane ($w_1, w_2$).
+*   Plot the **$L_1$ Unit Ball** ($|w_1| + |w_2| = 1$), which forms a sharp **diamond** shape with corners sitting directly on the axes.
+*   Plot the **$L_2$ Unit Ball** ($w_1^2 + w_2^2 = 1$), which forms a smooth **circle**.
+*   Draw concentric ellipses representing the contours of a loss function $\mathcal{L}(w)$ centered around an optimal point away from the origin. 
+*   Illustrate how the loss function contour first touches the $L_1$ diamond at a corner (where $w_1 = 0$ or $w_2 = 0$), demonstrating why $L_1$ induces sparsity. Contrast this with the $L_2$ circle, where the loss contour touches at a smooth, non-axial point.

@@ -1,125 +1,126 @@
 ---
 title: "Linear & Logistic Blueprints"
-description: "Mastering the fundamental geometry of decision making and the bedrock of supervised learning."
-complexity: "Intermediate"
-estimated_time: "25 min"
-prerequisites: ["Foundations", "Calculus", "Probability Basics"]
+description: "Skeptical hyperplanes, linear combinations, sigmoid squishing, binary cross-entropy, and gradient derivations of the classification boundary."
+complexity: "Advanced"
+estimated_time: "40 min"
+prerequisites: ["Foundations", "Calculus: Chain Rule", "Probability: Bernoulli Distribution"]
 ---
 
 <h1 align="center"> Chapter 117: Linear & Logistic Blueprints </h1>
 
----
+***
 
 <div style="background-color: #f0f7ff; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
 
 ### Prerequisite
-
-- **Dot Product:** Understanding $w \cdot x$ as a projection of data onto a direction.
-- **Sigmoid Function:** Knowing how to "squish" any number into the range $[0, 1]$.
-- **Log-Loss:** The intuition that we punish "confident mistakes" more than "uncertain" ones.
+* **Sigmoid Activation:** The non-linear mapping function $\sigma(z) = \frac{1}{1+e^{-z}}$ that maps the real line $\mathbb{R}$ to the open interval $(0, 1)$.
+* **Binary Cross-Entropy Loss:** The information-theoretic metric that penalizes differences between binary targets and predicted probabilities.
 
 </div>
 
----
+## 1. Conceptual Hook
 
-## Analogy
+Linear and logistic regression are the twin bedrocks of supervised learning. While deep neural networks dominate headlines, these linear architectures are the primary workhorses of industry due to their execution speed, stability, and interpretability.
 
-Imagine you are a **Real Estate Appraiser**. You have two tasks:
-1. **Linear Regression:** You need to estimate the *exact price* of a house. You look at features (sq ft, age) and try to fit a "Straight Plane" through the data. If a house has 100 more sq ft, the price goes up by exactly \$10,000. It's continuous and predictable.
-2. **Logistic Regression:** You need to decide if a house is a "Luxury Mansion" or a "Standard Home." This isn't a price; it's a **Decision**. You draw a "Line in the Sand" (the Boundary). If a house is on the right of the line, it's luxury; on the left, it's standard. 
+Linear regression is the mathematical ruler: it estimates a continuous value by fitting a flat hyperplane through your feature space.
 
-Linear is about **Measurement** (the Ruler); Logistic is about **Classification** (the Gatekeeper). One gives you a value; the other gives you a probability.
+Logistic regression is the mathematical gatekeeper: it makes binary decisions. It projects your features onto a line, but then wraps the result in a sigmoid "squishing" function, mapping arbitrary scores into probabilities between $0.0$ and $1.0$.
 
----
+Think of this like classifying home sales. If you are predicting the exact price of a house, you are using a ruler (linear regression). If you are deciding whether a house is a "Luxury Mansion" based on a threshold boundary, you are using a gatekeeper (logistic regression).
 
-## The Math Link
-
-Both models share the same "Skeleton": the **Linear Combination**.
-
-### 1. Linear Regression (The Ruler)
-The output is a direct weighted sum:
-$$\hat{y} = \sum_{i=1}^d w_i x_i + b = W^T x + b$$
-The loss is usually **Mean Squared Error (MSE)**: $L = (y - \hat{y})^2$.
-
-### 2. Logistic Regression (The Gatekeeper)
-We wrap the linear output in a **Sigmoid function** $\sigma(z) = \frac{1}{1 + e^{-z}}$:
-$$\hat{y} = \sigma(W^T x + b)$$
-The output $\hat{y}$ is interpreted as $P(y=1 | x)$.
-The loss is **Cross-Entropy (Log-Loss)**:
-$$L = - [y \log(\hat{y}) + (1-y) \log(1-\hat{y})]$$
+Both models share the same skeletal structure: they form decisions by scaling and summing features.
 
 ---
 
-<div style="background-color: #f0fff4; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
+## 2. Formal Definition
 
-**THE INTUITION**
-Logistic Regression is just Linear Regression that has been "censored." Instead of letting the output go to infinity, we squish it between 0 and 1. The **Decision Boundary** is the location where $W^T x + b = 0$, meaning the model is exactly 50/50 unsure.
+### 1. Linear Regression (Continuous Estimation)
+Given a dataset $\mathcal{D} = \{(\mathbf{x}_i, y_i)\}_{i=1}^n$ where $\mathbf{x}_i \in \mathbb{R}^d$ and $y_i \in \mathbb{R}$, the linear regression hypothesis is:
+$$h_{\mathbf{w}, b}(\mathbf{x}) = \mathbf{w}^T \mathbf{x} + b$$
+where $\mathbf{w} \in \mathbb{R}^d$ is the weight vector and $b \in \mathbb{R}$ is the bias.
 
-</div>
+The objective is to locate the parameters that minimize the Mean Squared Error (MSE) cost function:
+$$J(\mathbf{w}, b) = \frac{1}{2n} \sum_{i=1}^{n} \left( h_{\mathbf{w}, b}(\mathbf{x}_i) - y_i \right)^2$$
 
----
+### 2. Logistic Regression (Probabilistic Classification)
+For classification where targets are binary ($y_i \in \{0, 1\}$), the hypothesis wraps the linear predictor in the sigmoid function:
+$$h_{\mathbf{w}, b}(\mathbf{x}) = \sigma(\mathbf{w}^T \mathbf{x} + b) = \frac{1}{1 + e^{-(\mathbf{w}^T \mathbf{x} + b)}}$$
+The output $a_i = h_{\mathbf{w}, b}(\mathbf{x}_i)$ represents the conditional probability $P(y_i = 1 \mid \mathbf{x}_i)$.
 
-## Let's Run the Numbers
-
-### Example 1: Linear Price Prediction
-
-A model predicts house prices based on Square Footage ($x_1$) and Age ($x_2$).
-- Weights: $w_1 = 200, w_2 = -500$. Bias: $b = 50,000$.
-- House: $x = [2000 \text{ sqft}, 10 \text{ years}]$.
-
-**Calculation:**
-$$\hat{y} = (200 \times 2000) + (-500 \times 10) + 50,000$$
-1. $400,000 - 5,000 + 50,000 = 445,000$.
-
-**The Story:** The model predicts the house is worth \$445,000. Note how $w_2$ is negative—it acts as a "Depreciation" factor.
-
-### Example 2: Logistic Probability (The Squish)
-
-You want to classify a transaction as "Fraud" ($y=1$) or "Safe" ($y=0$).
-The linear score is $z = W^T x + b = -2$.
-
-**Calculation:**
-$$\hat{y} = \sigma(-2) = \frac{1}{1 + e^{2}}$$
-1. $e^{2} \approx 7.389$
-2. $1 / 8.389 \approx 0.119$.
-
-**The Story:** There is an 11.9% chance this is fraud. Since this is below 50%, we classify it as "Safe."
-
-### Example 3: The Cost of a Confident Mistake
-
-You have a "Fraud" case ($y=1$).
-- Case A: Model predicts 0.9 confidence.
-- Case B: Model predicts 0.1 confidence.
-
-**Calculation (Log-Loss):**
-1. Case A: $L = -\log(0.9) \approx 0.105$.
-2. Case B: $L = -\log(0.1) \approx 2.302$.
-
-**The Story:** Even though Case B is only "9 times less confident" than Case A, the penalty is **22 times higher**. The log-loss function "screams" at the model when it is confidently wrong.
+The objective is to minimize the Binary Cross-Entropy (Log-Loss) cost function:
+$$J(\mathbf{w}, b) = -\frac{1}{n} \sum_{i=1}^{n} \left[ y_i \ln a_i + (1 - y_i) \ln(1 - a_i) \right]$$
 
 ---
 
-<div style="background-color: #fff5f5; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
+## 3. Illustrative Derivation
 
-**CRITICAL TECHNICAL INSIGHT: Multi-collinearity**
-If two features are perfectly correlated (e.g., "Sq Ft" and "Sq Meters"), the math of Linear Regression "breaks." There isn't a single unique set of weights $W$ that solves the problem. This leads to **Numerical Instability**. To fix this, we use **Regularization (L1/L2)** to "punish" the weights and force them to play nice.
+### Derivation of the Logistic Regression Loss Gradient
+We prove that the gradient of the Binary Cross-Entropy loss with respect to the weight parameters $\mathbf{w}$ simplifies to a simple error-scaled feature sum, mirroring the linear regression update rule.
 
-</div>
+*Proof:*
+Let $a_i = \sigma(z_i)$ where $z_i = \mathbf{w}^T \mathbf{x}_i + b$.
+1.  **Calculate the derivative of the Sigmoid function:**
+    $$\sigma'(z) = \frac{d}{dz} (1+e^{-z})^{-1} = -(1+e^{-z})^{-2}(-e^{-z}) = \frac{e^{-z}}{(1+e^{-z})^2} = \left(\frac{1}{1+e^{-z}}\right)\left(\frac{e^{-z}}{1+e^{-z}}\right) = \sigma(z)(1-\sigma(z))$$
+    Therefore:
+    $$\frac{\partial a_i}{\partial z_i} = a_i(1 - a_i)$$
+
+2.  **Define the individual loss term $\mathcal{L}_i$:**
+    $$\mathcal{L}_i = - \left[ y_i \ln a_i + (1 - y_i) \ln(1 - a_i) \right]$$
+    By the chain rule, the derivative with respect to weight parameter $w_j$ is:
+    $$\frac{\partial \mathcal{L}_i}{\partial w_j} = \frac{\partial \mathcal{L}_i}{\partial a_i} \frac{\partial a_i}{\partial z_i} \frac{\partial z_i}{\partial w_j}$$
+
+3.  **Evaluate each partial derivative term:**
+    *   **Term 1:** $\frac{\partial \mathcal{L}_i}{\partial a_i} = - \left[ \frac{y_i}{a_i} - \frac{1 - y_i}{1 - a_i} \right] = -\frac{y_i(1 - a_i) - a_i(1 - y_i)}{a_i(1 - a_i)} = \frac{a_i - y_i}{a_i(1 - a_i)}$
+    *   **Term 2:** $\frac{\partial a_i}{\partial z_i} = a_i(1 - a_i)$
+    *   **Term 3:** $\frac{\partial z_i}{\partial w_j} = x_{ij}$ (where $x_{ij}$ is the $j$-th feature of sample $i$).
+
+4.  **Combine the terms:**
+    $$\frac{\partial \mathcal{L}_i}{\partial w_j} = \left( \frac{a_i - y_i}{a_i(1 - a_i)} \right) \cdot \left( a_i(1 - a_i) \right) \cdot x_{ij} = (a_i - y_i) x_{ij}$$
+    Expressed in vector notation:
+    $$\nabla_{\mathbf{w}} \mathcal{L}_i = (a_i - y_i) \mathbf{x}_i$$
+
+5.  **Average over the entire dataset:**
+    $$\nabla_{\mathbf{w}} J(\mathbf{w}, b) = \frac{1}{n} \sum_{i=1}^{n} (a_i - y_i) \mathbf{x}_i \quad \blacksquare$$
+
+This shows that the gradient update direction is simply the prediction error $(a_i - y_i)$ scaled by the feature vector $\mathbf{x}_i$.
 
 ---
 
-## ML Applications
+## 4. Concrete Examples
 
-1.  **Credit Scoring:** Using Logistic Regression to decide if a loan should be approved based on income and history.
-2.  **Stock Price Forecasting:** Using Linear Regression to predict the future price of an asset based on indicators.
-3.  **Spam Detection:** The classic application of Logistic Regression in early email systems.
-4.  **Medical Diagnosis:** Predicting the probability of a disease based on test results.
-5.  **Click-Through Rate (CTR):** Advertising systems predicting if you will click on an ad (Binary classification).
+### Example 1: Linear House Appraiser
+We predict a house price using features $x_1$ (square footage) and $x_2$ (age).
+*   **Weights:** $w_1 = 200$, $w_2 = -500$, bias $b = 50000$.
+*   **Input:** $\mathbf{x} = [2000 \text{ sqft}, 10 \text{ years}]^T$.
+$$\hat{y} = 200(2000) - 500(10) + 50000 = 400000 - 5000 + 50000 = 445000 \text{ dollars}$$
+
+### Example 2: Logistic Fraud Gatekeeper
+We evaluate a credit transaction where the linear score is calculated as $z = \mathbf{w}^T\mathbf{x} + b = -2$.
+1.  **Compute the probability of fraud ($y=1$):**
+    $$\hat{y} = \sigma(-2) = \frac{1}{1 + e^2} \approx \frac{1}{1 + 7.389} \approx 0.119 \quad (11.9\% \text{ probability})$$
+2.  **Calculate the Cross-Entropy loss if the true label is $y=0$ (safe transaction):**
+    $$\mathcal{L} = - \left[ 0 \cdot \ln(0.119) + (1 - 0) \cdot \ln(1 - 0.119) \right] = -\ln(0.881) \approx 0.127$$
+3.  **Calculate the Cross-Entropy loss if the true label is $y=1$ (fraud transaction):**
+    $$\mathcal{L} = - \left[ 1 \cdot \ln(0.119) + 0 \cdot \ln(0.881) \right] = -\ln(0.119) \approx 2.128$$
+Note how the loss is significantly higher ($\approx 17\times$) when the model is confident but wrong.
 
 ---
 
-<div style="background-color: #fffaf0; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
+## 5. Applied ML Context
 
-**Debugging Tip:** If your Logistic Regression model is predicting exactly 0 or 1 for every case, your data is **Linearly Separable**. While this sounds good, it can lead to "Overfitting." Check if you have a "Leaky Feature"—a variable that accidentally contains the answer (e.g., the "Doctor's Final Note" in a prediction of a disease).
+1.  **Consumer Credit Approval:** Using Logistic Regression to compute the probability of loan default based on credit history and debt-to-income features.
+2.  **Quantitative Stock Pricing:** Using Linear Regression models as simple baseline predictors to forecast equity values based on trailing metrics.
+3.  **Ad CTR (Click-Through Rate):** Ad placement networks use logistic estimators to predict the probability that a user clicks a given display banner.
+4.  **Medical Diagnosis Probability:** Estimating the likelihood of cardiac disease based on clinical indicators (blood pressure, age, cholesterol levels).
+5.  **Spam Filter Baselines:** Initial screening filters use logistic regression classifiers to evaluate incoming email features.
 
-</div>
+---
+
+## 6. Visual/Intuitive Summary
+
+A diagram should be placed here comparing Linear and Logistic predictions:
+*   Draw two 2D plots side-by-side:
+    1.  **Linear Regression Plot:** Show data points scattered around a straight diagonal regression line representing $y = \mathbf{w}^T\mathbf{x} + b$. Annotate that the output extends to $\pm \infty$.
+    2.  **Logistic Regression Plot:** Show points clustered at $y=0$ and $y=1$. Draw an S-shaped sigmoid curve $\sigma(\mathbf{w}^T\mathbf{x} + b)$ running between them.
+*   On the Logistic plot, highlight the **Decision Boundary** at the point where the sigmoid curve crosses $0.5$ ($z = 0$).
+*   Add a caption explaining that linear regression outputs continuous values along a straight line, whereas logistic regression squishes the output into a probability curve between $0.0$ and $1.0$.

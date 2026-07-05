@@ -1,123 +1,118 @@
 ---
 title: "Basis and Dimension"
-description: "Mastering the mathematical foundations of artificial intelligence."
-complexity: "Intermediate"
-estimated_time: "20 min"
+description: "Linear independence, spanning sets, unique representations, and coordinate transformations."
+complexity: "Advanced"
+estimated_time: "35 min"
+prerequisites: ["Linear Independence", "Vector Spaces"]
 ---
 
 <h1 align="center"> Chapter 11: Basis and Dimension </h1>
 
 ***
 
-
-
-
-
 <div style="background-color: #f0f7ff; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
 
 ### Prerequisite
-* **Linear Independence:** Understanding that a set of vectors is independent if no vector in the set can be built by scaling and adding the others.
-* **Span:** The concept that a collection of vectors can "reach" or cover a specific geometric space through linear combinations.
-* **Vector Spaces:** A formal playground (like $\mathbb{R}^n$) where addition and scaling follow consistent rules.
+* **Linear Independence:** Knowing when a set of vectors contains no redundancies.
+* **Vector Spaces & Span:** Understanding closure and how linear combinations cover space.
 
 </div>
 
+## 1. Conceptual Hook
 
-## Analogy
+In machine learning, we often work with massive datasets containing thousands of features (e.g., pixel intensities in images or word occurrences in text). However, much of this raw data is highly redundant. To analyze and process this information efficiently, we must find the **minimum set of independent features** needed to represent our data without losing any information. This set is a **basis**, and the size of this set is the **dimension** of our representation space.
 
-Think of a **Basis** as the "Minimum Shopping List" required to stock a kitchen, and **Dimension** as the "Number of Aisles" you are forced to navigate. 
+Think of a basis as the "leanest possible shopping list" of unique ingredients needed to cook every recipe in a cookbook. If you have two different brands of the exact same salt, your list is redundant. In ML, a basis represents the primary coordinate axes of our data space (such as principal components in PCA or latent factors in recommendation systems), while the dimension tells us the intrinsic complexity and capacity of our models.
 
-When you deal with a **Local Vendor**, you are often restricted by a very specific, small basis. The vendor has a fixed inventory; if they only sell potatoes and onions, your "culinary space" is limited. You can make many things with them (different linear combinations), but you can't suddenly produce a beef Wellington. The "Dimension" here is low because the variety of independent ingredients is capped.
+---
 
-In contrast, the **Supermarket** provides a massive, diverse basis. You have access to every spice, grain, and protein. This increases the "Dimension" of what you can create. However, a Basis isn't just about having everything; it's about having the *efficient* minimum. If you have two different brands of the exact same salt, your list is redundant. A true Basis is the leanest possible list of unique items that still allows you to cook every single recipe possible in that store.
+## 2. Formal Definition
 
+Let $V$ be a vector space over a field $\mathbb{F}$. A set of vectors $\mathcal{B} = \{v_1, v_2, \dots, v_n\} \subset V$ is a **basis** of $V$ if it satisfies two conditions:
+1. **Linear Independence:** The only linear combination of $\{v_i\}$ that equals the zero vector is the trivial one:
+   $$\sum_{i=1}^n c_i v_i = 0 \implies c_1 = c_2 = \dots = c_n = 0$$
+2. **Spanning Property:** Every vector in $V$ can be written as a linear combination of vectors in $\mathcal{B}$:
+   $$\text{span}(\mathcal{B}) = V \iff \forall x \in V, \exists c_1, \dots, c_n \in \mathbb{F} \quad \text{s.t.} \quad x = \sum_{i=1}^n c_i v_i$$
 
-## The Math Link
+The **dimension** of $V$, denoted $\dim(V)$, is the cardinality (number of elements) of its basis $\mathcal{B}$:
+$$\dim(V) = |\mathcal{B}| = n$$
 
-In formal terms, a set of vectors $\mathcal{B} = \{v_1, v_2, \dots, v_n\}$ is a **Basis** for a vector space $\mathcal{V}$ if it satisfies two rigorous conditions:
-1.  **Linear Independence:** $\sum_{i=1}^{n} c_i v_i = \mathbf{0}$ implies $c_1 = c_2 = \dots = c_n = 0$.
-2.  **Spanning:** $\forall u \in \mathcal{V}, \exists \{c_1, c_2, \dots, c_n\} \in \mathbb{R}$ such that $u = \sum_{i=1}^{n} c_i v_i$.
+### Uniqueness of Representation Theorem
+**Theorem:** If $\mathcal{B} = \{v_1, \dots, v_n\}$ is a basis of $V$, then every vector $x \in V$ can be expressed in the form $x = \sum_{i=1}^n c_i v_i$ in exactly one way.
 
-The **Dimension**, denoted as $\dim(\mathcal{V})$, is the cardinality of the basis set:
-$$\dim(\mathcal{V}) = |\mathcal{B}| = n$$
+*Proof:*
+Suppose a vector $x$ has two different representations under the basis $\mathcal{B}$:
+$$x = \sum_{i=1}^n a_i v_i \quad \text{and} \quad x = \sum_{i=1}^n b_i v_i$$
+Subtracting these two equations:
+$$x - x = \sum_{i=1}^n a_i v_i - \sum_{i=1}^n b_i v_i$$
+$$0 = \sum_{i=1}^n (a_i - b_i) v_i$$
+Since $\mathcal{B}$ is a basis, its vectors are linearly independent. By definition of linear independence, the coefficients of this linear combination must all be zero:
+$$a_i - b_i = 0 \quad \forall i=1, \dots, n \implies a_i = b_i \quad \forall i=1, \dots, n$$
+Thus, the coefficients are unique. $\blacksquare$
 
-**The Derivation of Coordinates:**
-If $\mathcal{B}$ is a basis, any vector $x$ is uniquely represented. Suppose there were two representations:
-$$x = \sum_{i=1}^{n} a_i v_i \quad \text{and} \quad x = \sum_{i=1}^{n} b_i v_i$$
-Subtracting these yields:
-$$\mathbf{0} = \sum_{i=1}^{n} (a_i - b_i) v_i$$
-By the definition of linear independence, $(a_i - b_i) = 0$ for all $i$, proving that $a_i = b_i$. 
+---
 
-**The Link:** * The **Basis vectors** $v_i$ represent the "unique items" on your shopping list (e.g., milk, eggs). 
-* The **Coefficients** $c_i$ represent the "quantity" of each item you choose to buy.
-* The **Dimension** $n$ is the total count of unique categories you need to track to describe any possible grocery bag.
+## 3. Illustrative Derivation
 
+### Coordinate Transformations (Change of Basis)
+In ML, we often transform data from a standard basis to a more informative one (e.g., projecting features onto principal components). Let us derive the change of basis transition matrix.
 
+Let $\mathcal{B} = \{v_1, \dots, v_n\}$ and $\mathcal{C} = \{w_1, \dots, w_n\}$ be two bases of an $n$-dimensional space $V$. Any vector $x \in V$ can be represented in both bases:
+$$x = \sum_{j=1}^n [x]_\mathcal{B}^j v_j \quad \text{and} \quad x = \sum_{i=1}^n [x]_\mathcal{C}^i w_i$$
+where $[x]_\mathcal{B} \in \mathbb{F}^n$ and $[x]_\mathcal{C} \in \mathbb{F}^n$ are the coordinate vectors.
 
+We can express each basis vector $v_j$ of the basis $\mathcal{B}$ as a linear combination of the basis vectors in $\mathcal{C}$:
+$$v_j = \sum_{i=1}^n P_{ij} w_i$$
+Substitute this representation of $v_j$ back into the equation for $x$:
+$$x = \sum_{j=1}^n [x]_\mathcal{B}^j \left( \sum_{i=1}^n P_{ij} w_i \right) = \sum_{i=1}^n \left( \sum_{j=1}^n P_{ij} [x]_\mathcal{B}^j \right) w_i$$
+By uniqueness of coordinate representations under basis $\mathcal{C}$:
+$$[x]_\mathcal{C}^i = \sum_{j=1}^n P_{ij} [x]_\mathcal{B}^j \quad \forall i=1, \dots, n$$
+In matrix form:
+$$[x]_\mathcal{C} = P [x]_\mathcal{B}$$
+where $P \in \mathbb{F}^{n \times n}$ is the transition matrix whose columns are the coordinates of the "old" basis vectors $\mathcal{B}$ written in terms of the "new" basis $\mathcal{C}$:
+$$P = \Big[ \, [v_1]_\mathcal{C} \quad [v_2]_\mathcal{C} \quad \dots \quad [v_n]_\mathcal{C} \, \Big]$$
+Since $\mathcal{B}$ and $\mathcal{C}$ are bases, the transition matrix $P$ is always invertible, and the reverse transformation is $[x]_\mathcal{B} = P^{-1} [x]_\mathcal{C}$.
 
+---
 
-<div style="background-color: #f0fff4; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
+## 4. Concrete Examples
 
-**THE INTUITION**
-Basis is about **Efficiency** (no redundant items on the list). Dimension is about **Capacity** (how much "room" you have to move). If you have more items than the dimension, you're carrying dead weight. If you have fewer, you're starving.
+### Example 1: Coordinate Conversion
+Let the standard basis of $\mathbb{R}^2$ be $\mathcal{E} = \{e_1, e_2\} = \{\begin{bmatrix} 1 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 1 \end{bmatrix}\}$, and let a new basis be $\mathcal{B} = \{b_1, b_2\} = \{\begin{bmatrix} 2 \\ 1 \end{bmatrix}, \begin{bmatrix} 1 \\ 2 \end{bmatrix}\}$.
+Find the coordinate vector $[x]_\mathcal{B}$ for the standard vector $x = \begin{bmatrix} 5 \\ 4 \end{bmatrix}$.
 
-</div>
+1. **Set up the system $x = c_1 b_1 + c_2 b_2$:**
+   $$\begin{bmatrix} 5 \\ 4 \end{bmatrix} = c_1 \begin{bmatrix} 2 \\ 1 \end{bmatrix} + c_2 \begin{bmatrix} 1 \\ 2 \end{bmatrix} \implies \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix} \begin{bmatrix} c_1 \\ c_2 \end{bmatrix} = \begin{bmatrix} 5 \\ 4 \end{bmatrix}$$
+2. **Solve using matrix inversion:**
+   The transition matrix from $\mathcal{B}$ to $\mathcal{E}$ is $P = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$. Its determinant is $2(2) - 1(1) = 3$.
+   $$P^{-1} = \frac{1}{3} \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}$$
+   $$[x]_\mathcal{B} = P^{-1} x = \frac{1}{3} \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix} \begin{bmatrix} 5 \\ 4 \end{bmatrix} = \frac{1}{3} \begin{bmatrix} 10 - 4 \\ -5 + 8 \end{bmatrix} = \begin{bmatrix} 2 \\ 1 \end{bmatrix}$$
+   This shows that the vector $x = 5e_1 + 4e_2$ is represented as $2b_1 + 1b_2$ under the basis $\mathcal{B}$.
 
+### Example 2: Spanning Set Check
+Verify whether the set $\mathcal{A} = \{a_1, a_2\} = \{\begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix}\}$ forms a basis for $\mathbb{R}^3$.
+1. **Compare Dimension to Cardinality:**
+   The dimension of the vector space $\mathbb{R}^3$ is $\dim(\mathbb{R}^3) = 3$.
+   The number of vectors in $\mathcal{A}$ is $|\mathcal{A}| = 2$.
+2. **Apply Dimension Theorem:**
+   Any spanning set of $\mathbb{R}^3$ must contain at least $\dim(\mathbb{R}^3) = 3$ vectors. Since $|\mathcal{A}| < 3$, the set cannot span $\mathbb{R}^3$. Specifically, any vector with a non-zero first coordinate and zero second coordinate (e.g., $x = [1, 0, 0]^T$) cannot be written as a linear combination of $a_1$ and $a_2$. Thus, $\mathcal{A}$ is not a basis for $\mathbb{R}^3$.
 
-## Let's Run the Numbers
+---
 
-### 1. Comparing Prices (The Change of Basis)
-Imagine a local vendor sells "Bundle A" (2 apples, 1 orange) and "Bundle B" (1 apple, 2 oranges). You want to see how these compare to the supermarket's standard unit prices.
-* Supermarket Basis (Standard): $e_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$ (1 apple), $e_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$ (1 orange).
-* Vendor Basis: $b_1 = \begin{bmatrix} 2 \\ 1 \end{bmatrix}$, $b_2 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$.
+## 5. Applied ML Context
 
-Find the coordinates of a bag $x = \begin{bmatrix} 5 \\ 4 \end{bmatrix}$ (standard units) in the Vendor's basis.
-Solve $x = c_1 b_1 + c_2 b_2$:
-$$\begin{bmatrix} 5 \\ 4 \end{bmatrix} = c_1 \begin{bmatrix} 2 \\ 1 \end{bmatrix} + c_2 \begin{bmatrix} 1 \\ 2 \end{bmatrix}$$
-Represented as a system:
-$$2c_1 + 1c_2 = 5$$
-$$1c_1 + 2c_2 = 4$$
-Subtracting twice the second from the first: $2c_1 - 2c_1 + c_2 - 4c_2 = 5 - 8 \implies -3c_2 = -3 \implies c_2 = 1$.
-Substitute back: $c_1 + 2(1) = 4 \implies c_1 = 2$.
-**The Story:** To get exactly 5 apples and 4 oranges, you don't buy items individually; you buy 2 of the Vendor's "Bundle A" and 1 of "Bundle B". The math translates your "needs" into the "vendor's language."
+1.  **Principal Component Analysis (PCA):** PCA finds an orthogonal basis of the feature space aligned with the directions of maximum variance. Projecting data onto the first $k$ eigenvectors of the covariance matrix reduces the dimension of the space from $d$ to $k$, filtering out noise.
+2.  **Autoencoder Latent Dimension:** The bottleneck layer in an autoencoder acts as a compressed, non-linear coordinate space. The dimension of this bottleneck dictates the compression ratio and capacity of the network to reconstruct complex inputs.
+3.  **Matrix Rank in Recommendation Systems:** In collaborative filtering, the user-item rating matrix is assumed to have a low rank $k$. This rank $k$ is the dimension of the latent factor space (e.g., movie genres or user preferences) that governs user ratings.
+4.  **Multicollinearity Diagnostics:** If features in a dataset are not linearly independent (e.g., if one feature is a linear combination of others), the covariance matrix will not have full rank. This makes it impossible to compute its inverse, causing regression algorithms to fail.
+5.  **Kernel Methods in SVMs:** Standard support vector machines fail when data is not linearly separable. By using the kernel trick, we implicitly map the data into a higher-dimensional space with a larger basis, allowing the model to construct a linear separating boundary.
 
-### 2. Convenience of Home Delivery (Dimension Deficiency)
-A delivery app only allows you to order in "Health Packs": $v_1 = \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}$ (Kale and Spinach) and $v_2 = \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix}$ (Spinach and Carrots). You want a pure "Carrot" bag $u = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}$. 
-Check if $u$ is in the span of the Basis provided by the app:
-$$c_1 \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix} + c_2 \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}$$
-From row 1: $c_1 = 0$.
-From row 3: $c_2 = 1$.
-Check row 2: $c_1 + c_2 = 0 + 1 = 1$. But the target is $0$.
-$1 \neq 0$.
-**The Story:** The dimension of the "grocery space" is 3, but the delivery app only provides a 2-dimensional basis. Because your specific carrot needs fall outside that 2D plane, the delivery service literally cannot fulfill your request.
+---
 
-### 3. Picking by Hand (Redundancy Check)
-At the supermarket, you grab three pre-mixed bags: $v_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$, $v_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$, and $v_3 = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$. You want to know if these three bags form a Basis for your 2D recipe space.
-Calculate the determinant of the augmented set or check for linear independence:
-$$c_1 \begin{bmatrix} 1 \\ 0 \end{bmatrix} + c_2 \begin{bmatrix} 0 \\ 1 \end{bmatrix} + c_3 \begin{bmatrix} 1 \\ 1 \end{bmatrix} = \mathbf{0}$$
-If $c_3 = -1$, then $c_1 = 1$ and $c_2 = 1$ satisfies the equation.
-**The Story:** Since $c_1, c_2, c_3$ are not all zero, the items are linearly dependent. You are carrying too much. You only need $v_1$ and $v_2$ to create anything $v_3$ offers. The "Dimension" is 2, but you have 3 items; one is redundant "picking by hand" effort.
+## 6. Visual/Intuitive Summary
 
-
-## ML Applications
-
-1.  **Principal Component Analysis (PCA):** PCA finds a new basis (Principal Components) for the data where the first few basis vectors capture the maximum variance. Reducing the number of basis vectors used is the core of dimensionality reduction.
-2.  **Word Embeddings (NLP):** In models like Word2Vec, words are projected into a high-dimensional vector space. The "Dimension" of this space (e.g., 300 or 768) determines the model's capacity to represent nuanced semantic relationships.
-3.  **Latent Space in Autoencoders:** The "bottleneck" layer of an autoencoder represents a lower-dimensional basis for the input data. The model learns to compress a high-dimensional input (like a $28 \times 28$ image) into a small dimension (e.g., 32) that still spans the essential features of the dataset.
-4.  **Matrix Rank in Recommendation Systems:** In Collaborative Filtering, we decompose a user-item matrix. The "Rank" of the matrix is the dimension of the vector space spanned by its columns/rows, representing the number of independent "latent factors" (like movie genres) driving user preferences.
-5.  **Kernel Methods (SVM):** The "Kernel Trick" implicitly maps data into a much higher-dimensional basis where a linear separator (hyperplane) can be found. This allows models to solve non-linear problems by temporarily increasing the dimension of the feature space.
-
-
-<div style="background-color: #fff5f5; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
-
-**Critical Insight:** In ML, "High Dimension" is a double-edged sword. While it allows for more complex representations, the **Curse of Dimensionality** means that as dimension increases, data points become exponentially sparse. A basis that is too large often leads to overfitting, capturing noise as if it were a fundamental component of the space.
-
-</div>
-
-
-<div style="background-color: #fffaf0; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
-
-**Debugging Tip:** If your model's covariance matrix is non-invertible (singular), it’s usually because your features are not linearly independent—meaning your "Basis" has redundant "Shopping List" items. Check for multicollinearity!
-
-</div>
-
+A diagram should be placed here visualizing basis spans and dimension:
+*   Show a 3D coordinate system ($x, y, z$).
+*   Plot a 2D tilted plane passing through the origin. Label this plane as "Subspace $W$, $\dim(W) = 2$."
+*   Plot two linearly independent vectors $b_1$ and $b_2$ lying on this plane. Show that any point on the plane can be reached via a linear combination of $b_1$ and $b_2$, proving they form a basis for $W$.
+*   Plot a third vector $b_3$ that sticks out of the plane into the 3D space. Illustrate that to span the full 3D space $\mathbb{R}^3$, we must expand our basis to $\{b_1, b_2, b_3\}$, increasing the dimension of our coordinate representation to 3.

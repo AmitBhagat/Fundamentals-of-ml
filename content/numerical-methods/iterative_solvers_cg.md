@@ -1,143 +1,147 @@
 ---
-title: "Iterative Solvers (CG)"
-description: "Mastering the mathematical foundations of artificial intelligence."
-complexity: "Intermediate"
-estimated_time: "20 min"
+title: "Iterative Solvers (Conjugate Gradient)"
+description: "Large sparse linear systems, quadratic form minimization, Krylov subspaces, A-conjugacy derivations, and preconditioning."
+complexity: "Advanced"
+estimated_time: "40 min"
+prerequisites: ["Linear Algebra: Matrices", "Linear Algebra: Orthogonality and Projections", "Optimization: Gradient Descent"]
 ---
 
-<h1 align="center"> Chapter 99: Iterative Solvers (CG) </h1>
+<h1 align="center"> Chapter 99: Iterative Solvers (Conjugate Gradient) </h1>
 
----
-
-
-
+***
 
 <div style="background-color: #f0f7ff; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
 
 ### Prerequisite
-
-- **Linear Systems:** Understanding $Ax = b$, where $A$ is a symmetric positive-definite (SPD) matrix.
-- **Quadratic Forms:** Familiarity with the function $f(x) = \frac{1}{2}x^T Ax - b^T x$.
-- **Orthogonality:** The concept of vectors being perpendicular under a specific inner product.
+* **Symmetric Positive-Definite (SPD) Matrix:** A symmetric matrix $\mathbf{A}$ satisfying $\mathbf{v}^T\mathbf{A}\mathbf{v} > 0$ for all non-zero vectors $\mathbf{v}$.
+* **Krylov Subspace:** The vector space spanned by the images of a vector under successive powers of a matrix: $\mathcal{K}_k(\mathbf{A}, \mathbf{v}) = \text{span}\{\mathbf{v}, \mathbf{A}\mathbf{v}, \dots, \mathbf{A}^{k-1}\mathbf{v}\}$.
 
 </div>
 
-## Analogy
+## 1. Conceptual Hook
 
-When you walk into a store to buy a wall clock, you don't just grab the first one and head to the checkout. You iterate. You look at a clock, evaluate it against your needs, and then adjust your search based on what was missing. If the first one is too small, you don't just pick a random second one; you use the "error" from the first choice to move in a better direction. Conjugate Gradient (CG) is exactly this process. It is a refined way of shopping where every new clock you inspect is guaranteed to be "different" in a very specific way from the ones you’ve already rejected, ensuring you don't waste time looking at the same flaws twice. You are narrowing down the perfect choice by systematically eliminating directions that don't lead to the center of the store where the "perfect clock" sits.
+Solving linear systems of equations $\mathbf{A}\mathbf{x} = \mathbf{b}$ is a core calculation in machine learning. However, when $\mathbf{A}$ is a massive, sparse matrix with millions of dimensions, direct solvers (like Gaussian elimination or Cholesky decomposition) become computationally impossible. Inverting the matrix requires $O(d^3)$ operations and destroys the computational efficiency of sparsity.
 
-## The Math Link
+Standard gradient descent can approximate the solution iteratively but suffers from a "short-term memory" problem. In narrow, steep valleys, gradient descent takes steps perpendicular to the contours, leading to a slow, zig-zagging trajectory that repeats updates along previously explored directions.
 
-The Conjugate Gradient method is an algorithm for the numerical solution of particular systems of linear equations. Specifically, we solve:
+The **Conjugate Gradient (CG)** method solves this memory problem.
 
-$$Ax = b$$
-
-where $A \in \mathbb{R}^{n \times n}$ is a symmetric, positive-definite matrix. Solving this is equivalent to minimizing the quadratic form:
-
-$$f(x) = \frac{1}{2}x^T Ax - b^T x + c$$
-
-The derivation relies on generating a set of $A$-orthogonal (conjugate) search directions $\{p_0, p_1, \dots, p_{n-1}\}$ such that for $i \neq j$:
-
-$$p_i^T A p_j = 0$$
-
-Given an initial guess $x_0$, we update the solution iteratively:
-
-$$x_{k+1} = x_k + \alpha_k p_k$$
-
-To find the optimal step size $\alpha_k$, we minimize $f(x_k + \alpha p_k)$ by setting the derivative with respect to $\alpha$ to zero:
-
-$$\alpha_k = \frac{r_k^T r_k}{p_k^T A p_k}$$
-
-where $r_k = b - Ax_k$ is the residual (the "distance" to the perfect clock). The next search direction $p_{k+1}$ is determined by taking the current residual and adding a portion of the previous direction to maintain $A$-conjugacy:
-
-$$\beta_k = \frac{r_{k+1}^T r_{k+1}}{r_k^T r_k}$$
-$$p_{k+1} = r_{k+1} + \beta_k p_k$$
-
-**Analogy Link:**
-
-- $x_k$: Your current choice of clock.
-- $r_k$: The "mismatch" or disappointment you feel looking at the current clock.
-- $A$: The "room constraints" (size, wall texture) that dictate how a clock fits.
-- $p_k$: The direction you walk in the store to find the next candidate.
-
-<div style="background-color: #f0fff4; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
-
-**THE INTUITION**
-Think of CG as a smart search. While Gradient Descent might keep walking back and forth across the same hallway, CG remembers where it has already looked. By making search directions "conjugate," it ensures that the work done in one direction isn't undone by the next step. It’s the difference between wandering a store and having a map that crosses off entire aisles as you go.
-
-</div>
-
-
-
-## Let's Run the Numbers
-
-### 1. Checking the 'Ticking' Sound
-
-You find a clock, but the ticking is loud. You need to adjust your search to find a quieter one. Suppose we have a 1D system where $A = [4]$, $b = [8]$, and $x_0 = [0]$.
-
-**Calculation:**
-
-1.  Initial residual: $r_0 = b - Ax_0 = 8 - (4)(0) = 8$.
-2.  Initial direction: $p_0 = r_0 = 8$.
-3.  Calculate step size $\alpha_0$:
-    $$\alpha_0 = \frac{r_0^T r_0}{p_0^T A p_0} = \frac{8^2}{8 \cdot 4 \cdot 8} = \frac{64}{256} = 0.25$$
-4.  Update solution:
-    $$x_1 = x_0 + \alpha_0 p_0 = 0 + 0.25(8) = 2$$
-
-**The Story:** The math tells us that if the "ticking noise" (error) is 8 units loud, and the "room acoustics" ($A$) amplify sound by 4, we need to move exactly 0.25 steps in our search direction to hit the silent spot ($x=2$), solving the system perfectly in one go.
+Instead of taking steps along the steepest descent direction, CG generates a sequence of search directions that are mutually orthogonal with respect to the matrix $\mathbf{A}$ (called **$\mathbf{A}$-conjugate directions**). This geometric constraint guarantees that the minimization achieved along one search direction is never undone by subsequent updates. As a result, the algorithm eliminates redundant updates, guaranteeing convergence to the exact solution of a $d$-dimensional linear system in at most $d$ steps.
 
 ---
 
-### 2. The Design Match
+## 2. Formal Definition
 
-The clock fits the noise profile, but the visual design is off. We move to a 2D problem:
-$A = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}$, $b = \begin{bmatrix} 2 \\ 2 \end{bmatrix}$, $x_0 = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$.
+We wish to solve the linear system:
+$$\mathbf{A}\mathbf{x} = \mathbf{b}$$
+where $\mathbf{A} \in \mathbb{R}^{d \times d}$ is a symmetric, positive-definite (SPD) matrix. Solving this system is mathematically equivalent to locating the unique global minimizer of the strictly convex quadratic function:
+$$f(\mathbf{x}) = \frac{1}{2} \mathbf{x}^T \mathbf{A} \mathbf{x} - \mathbf{b}^T \mathbf{x}$$
 
-**Calculation:**
+### A-Conjugacy
+Two non-zero vectors $\mathbf{p}_i, \mathbf{p}_j \in \mathbb{R}^d$ are defined as **$\mathbf{A}$-conjugate** (or $\mathbf{A}$-orthogonal) if:
+$$\mathbf{p}_i^T \mathbf{A} \mathbf{p}_j = 0 \quad \forall i \neq j$$
 
-1.  $r_0 = \begin{bmatrix} 2 \\ 2 \end{bmatrix} - \begin{bmatrix} 0 \\ 0 \end{bmatrix} = \begin{bmatrix} 2 \\ 2 \end{bmatrix}$. $p_0 = r_0$.
-2.  $\alpha_0 = \frac{r_0^T r_0}{p_0^T A p_0} = \frac{2^2 + 2^2}{\begin{bmatrix} 2 & 2 \end{bmatrix} \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix} \begin{bmatrix} 2 \\ 2 \end{bmatrix}} = \frac{8}{16} = 0.5$.
-3.  $x_1 = \begin{bmatrix} 0 \\ 0 \end{bmatrix} + 0.5 \begin{bmatrix} 2 \\ 2 \end{bmatrix} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$.
+### The Conjugate Gradient Algorithm
+Starting from an initial guess $\mathbf{x}^{(0)}$, we compute the initial residual (which is the negative gradient of $f$):
+$$\mathbf{r}^{(0)} = \mathbf{b} - \mathbf{A}\mathbf{x}^{(0)}$$
+and set the initial search direction:
+$$\mathbf{p}^{(0)} = \mathbf{r}^{(0)}$$
 
-**The Story:**
-By checking the design match, we realized we were off in two dimensions (color and shape). The CG step balanced both needs simultaneously. Because our "preferences" ($A$) were perfectly aligned (diagonal matrix), we reached the ideal design ($x_1$) in a single stride.
+For iteration steps $k = 0, 1, 2, \dots$:
+1.  **Calculate Primal Step Size ($\alpha_k$):**
+    Minimize $f\left(\mathbf{x}^{(k)} + \alpha_k \mathbf{p}^{(k)}\right)$ along the direction $\mathbf{p}^{(k)}$:
+    $$\alpha_k = \frac{\mathbf{r}^{(k)T} \mathbf{r}^{(k)}}{\mathbf{p}^{(k)T} \mathbf{A} \mathbf{p}^{(k)}}$$
+2.  **Update Primal State Vector:**
+    $$\mathbf{x}^{(k+1)} = \mathbf{x}^{(k)} + \alpha_k \mathbf{p}^{(k)}$$
+3.  **Update Residual Vector:**
+    $$\mathbf{r}^{(k+1)} = \mathbf{r}^{(k)} - \alpha_k \mathbf{A}\mathbf{p}^{(k)}$$
+    If $\|\mathbf{r}^{(k+1)}\|_2 < \text{tolerance}$, terminate.
+4.  **Calculate Conjugacy Coefficient ($\beta_k$):**
+    Using the Fletcher-Reeves formula to enforce $\mathbf{A}$-conjugacy:
+    $$\beta_k = \frac{\mathbf{r}^{(k+1)T} \mathbf{r}^{(k+1)}}{\mathbf{r}^{(k)T} \mathbf{r}^{(k)}}$$
+5.  **Generate Next Conjugate Search Direction:**
+    $$\mathbf{p}^{(k+1)} = \mathbf{r}^{(k+1)} + \beta_k \mathbf{p}^{(k)}$$
 
 ---
 
-### 3. The 'Easy to Read' Test
+## 3. Illustrative Derivation
 
-Finally, you check if you can read the numbers from across the room. Let's use a slightly skewed $A$ to represent a harder search:
-$A = \begin{bmatrix} 4 & 1 \\ 1 & 3 \end{bmatrix}$, $b = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$, $x_0 = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$.
+### Derivation of the Conjugate Parameter Updates
+We derive the orthogonality of residuals ($\mathbf{r}^{(i)T} \mathbf{r}^{(j)} = 0$) and conjugacy of search directions ($\mathbf{p}^{(i)T} \mathbf{A} \mathbf{p}^{(j)} = 0$) for the first update step ($k = 1$).
 
-**Calculation:**
+*Proof:*
+Let $\mathbf{p}^{(0)} = \mathbf{r}^{(0)} = \mathbf{b} - \mathbf{A}\mathbf{x}^{(0)}$.
+1.  **Prove Residual Orthogonality ($\mathbf{r}^{(0)T} \mathbf{r}^{(1)} = 0$):**
+    The residual update is $\mathbf{r}^{(1)} = \mathbf{r}^{(0)} - \alpha_0 \mathbf{A}\mathbf{p}^{(0)}$.
+    Multiply by $\mathbf{r}^{(0)T}$:
+    $$\mathbf{r}^{(0)T} \mathbf{r}^{(1)} = \mathbf{r}^{(0)T} \left( \mathbf{r}^{(0)} - \alpha_0 \mathbf{A}\mathbf{p}^{(0)} \right) = \mathbf{r}^{(0)T} \mathbf{r}^{(0)} - \alpha_0 \mathbf{r}^{(0)T} \mathbf{A}\mathbf{p}^{(0)}$$
+    Substitute $\mathbf{p}^{(0)} = \mathbf{r}^{(0)}$ and the step size expression $\alpha_0 = \frac{\mathbf{r}^{(0)T}\mathbf{r}^{(0)}}{\mathbf{p}^{(0)T}\mathbf{A}\mathbf{p}^{(0)}}$:
+    $$\mathbf{r}^{(0)T} \mathbf{r}^{(1)} = \mathbf{r}^{(0)T} \mathbf{r}^{(0)} - \left( \frac{\mathbf{r}^{(0)T}\mathbf{r}^{(0)}}{\mathbf{r}^{(0)T}\mathbf{A}\mathbf{r}^{(0)}} \right) \mathbf{r}^{(0)T}\mathbf{A}\mathbf{r}^{(0)} = \mathbf{r}^{(0)T} \mathbf{r}^{(0)} - \mathbf{r}^{(0)T} \mathbf{r}^{(0)} = 0$$
+The residuals are orthogonal after the first update step.
 
-1.  $r_0 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$, $p_0 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$.
-2.  $p_0^T A p_0 = \begin{bmatrix} 1 & 2 \end{bmatrix} \begin{bmatrix} 6 \\ 7 \end{bmatrix} = 20$.
-3.  $\alpha_0 = \frac{1^2 + 2^2}{20} = \frac{5}{20} = 0.25$.
-4.  $x_1 = \begin{bmatrix} 0 \\ 0 \end{bmatrix} + 0.25 \begin{bmatrix} 1 \\ 2 \end{bmatrix} = \begin{bmatrix} 0.25 \\ 0.5 \end{bmatrix}$.
+2.  **Enforce search direction conjugacy ($\mathbf{p}^{(1)T} \mathbf{A} \mathbf{p}^{(0)} = 0$):**
+    We write the next direction as $\mathbf{p}^{(1)} = \mathbf{r}^{(1)} + \beta_0 \mathbf{p}^{(0)}$. We require:
+    $$\mathbf{p}^{(1)T} \mathbf{A} \mathbf{p}^{(0)} = 0 \implies \left( \mathbf{r}^{(1)} + \beta_0 \mathbf{p}^{(0)} \right)^T \mathbf{A} \mathbf{p}^{(0)} = 0 \implies \mathbf{r}^{(1)T} \mathbf{A} \mathbf{p}^{(0)} + \beta_0 \mathbf{p}^{(0)T} \mathbf{A} \mathbf{p}^{(0)} = 0$$
+    Solve for the coefficient $\beta_0$:
+    $$\beta_0 = -\frac{\mathbf{r}^{(1)T} \mathbf{A} \mathbf{p}^{(0)}}{\mathbf{p}^{(0)T} \mathbf{A} \mathbf{p}^{(0)}}$$
 
-**The Story:**
-The "Easy to Read" test is tricky because the font size and the contrast ($A_{12}$) are linked. Moving to improve one slightly changes the other. $x_1$ isn't the perfect clock yet, but it's the best possible compromise for the first aisle we searched. We'll need one more "conjugate" step to finish the job.
+3.  **Simplify the numerator expression:**
+    From $\mathbf{r}^{(1)} = \mathbf{r}^{(0)} - \alpha_0 \mathbf{A}\mathbf{p}^{(0)}$, we rearrange terms to isolate $\mathbf{A}\mathbf{p}^{(0)}$:
+    $$\mathbf{A}\mathbf{p}^{(0)} = \frac{1}{\alpha_0} \left( \mathbf{r}^{(0)} - \mathbf{r}^{(1)} \right)$$
+    Substitute this into the numerator of our $\beta_0$ equation:
+    $$\mathbf{r}^{(1)T} \mathbf{A}\mathbf{p}^{(0)} = \frac{1}{\alpha_0} \mathbf{r}^{(1)T} \left( \mathbf{r}^{(0)} - \mathbf{r}^{(1)} \right) = \frac{1}{\alpha_0} \left( \mathbf{r}^{(1)T}\mathbf{r}^{(0)} - \mathbf{r}^{(1)T}\mathbf{r}^{(1)} \right)$$
+    Since $\mathbf{r}^{(1)T}\mathbf{r}^{(0)} = 0$:
+    $$\mathbf{r}^{(1)T} \mathbf{A}\mathbf{p}^{(0)} = -\frac{\mathbf{r}^{(1)T}\mathbf{r}^{(1)}}{\alpha_0}$$
 
-<div style="background-color: #fff5f5; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
+4.  **Assemble the final expression for $\beta_0$:**
+    $$\beta_0 = -\frac{-\mathbf{r}^{(1)T}\mathbf{r}^{(1)} / \alpha_0}{\mathbf{p}^{(0)T} \mathbf{A} \mathbf{p}^{(0)}} = \frac{\mathbf{r}^{(1)T}\mathbf{r}^{(1)}}{\alpha_0 \mathbf{p}^{(0)T} \mathbf{A} \mathbf{p}^{(0)}}$$
+    Substitute $\alpha_0 \mathbf{p}^{(0)T} \mathbf{A} \mathbf{p}^{(0)} = \mathbf{r}^{(0)T} \mathbf{r}^{(0)}$ into the denominator:
+    $$\beta_0 = \frac{\mathbf{r}^{(1)T}\mathbf{r}^{(1)}}{\mathbf{r}^{(0)T}\mathbf{r}^{(0)}} \quad \blacksquare$$
 
-**CRITICAL INSIGHT**
-The efficiency of CG is strictly tied to the **Condition Number** $\kappa(A) = \frac{\lambda_{max}}{\lambda_{min}}$. If your matrix is "ill-conditioned" (one eigenvalue is massive while another is tiny), the quadratic form becomes a very long, skinny valley. In these cases, vanilla CG can struggle with floating-point errors, making **Preconditioning** ($M^{-1}Ax = M^{-1}b$) a mandatory requirement for production ML systems.
+This unrolls the recursive definition, proving how conjugacy is preserved at each step.
 
-</div>
+---
 
-## ML Applications
+## 4. Concrete Examples
 
-1.  **Optimization in Neural Networks:** While SGD is king for deep learning, CG is used in **Hessian-Free Optimization** to approximate second-order information without explicitly calculating the massive Hessian matrix.
-2.  **Gaussian Processes (GPs):** Training a GP involves solving $(K + \sigma^2 I) \alpha = y$. When the dataset size $N$ is large, inverting the covariance matrix $K$ ($O(N^3)$) is impossible; CG solves this iteratively in $O(N^2)$ per iteration.
-3.  **Support Vector Machines (SVMs):** The dual problem of an SVM can be solved using CG-based methods, especially when dealing with large-scale linear kernels where the matrix fits in memory.
-4.  **Graph Laplacians:** In semi-supervised learning, we often solve systems involving the Graph Laplacian matrix $L$ to propagate labels across a manifold. CG is the standard solver for these sparse, high-dimensional systems.
-5.  **Recommender Systems:** In Alternating Least Squares (ALS) for collaborative filtering, the "Least Squares" step involves solving a linear system for every user and item. CG is used to speed up these solves when the latent factor dimension is high.
+### Example 1: 1D Linear System
+Solve the system $4x = 8 \implies A = 4, b = 8$, starting from initial guess $x_0 = 0$.
+1.  **Calculate initial residual and search direction:**
+    $$r_0 = b - A x_0 = 8 - 4 \cdot 0 = 8 \implies p_0 = 8$$
+2.  **Calculate step size:**
+    $$\alpha_0 = \frac{r_0^2}{p_0 A p_0} = \frac{8^2}{8 \cdot 4 \cdot 8} = \frac{64}{256} = 0.25$$
+3.  **Update parameter state:**
+    $$x_1 = x_0 + \alpha_0 p_0 = 0 + 0.25 \cdot 8 = 2$$
+The algorithm converges to the exact solution $x^* = 2$ in a single iteration.
 
-<div style="background-color: #fffaf0; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
+### Example 2: 2D Decoupled Linear System
+Solve system $\mathbf{A}\mathbf{x} = \mathbf{b}$ where $\mathbf{A} = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}$ and $\mathbf{b} = \begin{bmatrix} 2 \\ 2 \end{bmatrix}$, starting from $\mathbf{x}^{(0)} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}^T$.
+1.  **Calculate initial residual and search direction:**
+    $$\mathbf{r}^{(0)} = \begin{bmatrix} 2 \\ 2 \end{bmatrix} - \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix} \begin{bmatrix} 0 \\ 0 \end{bmatrix} = \begin{bmatrix} 2 \\ 2 \end{bmatrix} \implies \mathbf{p}^{(0)} = \begin{bmatrix} 2 \\ 2 \end{bmatrix}$$
+2.  **Calculate step size:**
+    $$\alpha_0 = \frac{\mathbf{r}^{(0)T}\mathbf{r}^{(0)}}{\mathbf{p}^{(0)T}\mathbf{A}\mathbf{p}^{(0)}} = \frac{2^2 + 2^2}{\begin{bmatrix} 2 & 2 \end{bmatrix} \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix} \begin{bmatrix} 2 \\ 2 \end{bmatrix}} = \frac{8}{16} = 0.5$$
+3.  **Update parameter state:**
+    $$\mathbf{x}^{(1)} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} + 0.5 \begin{bmatrix} 2 \\ 2 \end{bmatrix} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$$
+Since $\mathbf{A}\mathbf{x}^{(1)} = \begin{bmatrix} 2 \\ 2 \end{bmatrix} = \mathbf{b}$, the algorithm converges in a single step.
 
-**Debugging Tip:** If your CG solver isn't converging, the first thing to check is if your matrix $A$ is truly **Symmetric Positive Definite**. If $A$ has even one negative eigenvalue, the "valley" turns into a "saddle," and CG will go flying off into infinity. Use a Lanczos iteration or a simple eigenvalue check if the scale allows.
+---
 
-</div>
+## 5. Applied ML Context
 
+1.  **Hessian-Free Optimization:** Deep learning optimization methods use CG to solve the Newton step equation $\mathbf{H}\Delta \mathbf{w} = -\nabla f$ iteratively. This avoids the need to explicitly compute or store the massive Hessian matrix.
+2.  **Gaussian Process Regressions:** Training GPs requires solving covariance systems $(K + \sigma^2 I)\boldsymbol{\alpha} = \mathbf{y}$. CG approximates the solution vector $\boldsymbol{\alpha}$ in $O(N^2)$ time per iteration, bypassing the expensive $O(N^3)$ matrix inversion.
+3.  **Linear Support Vector Machines:** The dual optimization objectives of large-scale linear SVM classifiers are solved using CG iterations.
+4.  **Graph Laplacian Label Propagation:** In semi-supervised manifold learning, CG solves the sparse linear equations used to propagate class labels across high-dimensional graph edges.
+5.  **Collaborative Filtering (ALS):** In Alternating Least Squares recommender systems, CG computes user and item latent vector updates quickly when latent factor dimensions are high.
 
+---
+
+## 6. Visual/Intuitive Summary
+
+A diagram should be placed here comparing Gradient Descent and CG trajectories:
+*   Draw a contour plot of a narrow 2D quadratic valley:
+    *   Show concentric ellipses representing level curves of constant loss.
+*   Trace two optimization paths starting from the same coordinate:
+    1.  **Gradient Descent Path (zig-zagging line):** Shows updates oscillating back and forth across the steep ravine walls, taking many steps to reach the center.
+    2.  **Conjugate Gradient Path (two-step line):** Shows the first step descending along one axis, and the second step pointing exactly along the conjugate axis, reaching the global minimum in exactly two steps.
+*   Add a caption explaining that standard gradient descent repeats updates along previously explored directions, whereas Conjugate Gradient uses conjugate search directions to solve a $d$-dimensional system in at most $d$ steps.

@@ -1,117 +1,133 @@
 ---
 title: "Partial Derivatives"
-description: "Mastering the mathematical foundations of artificial intelligence."
-complexity: "Intermediate"
-estimated_time: "20 min"
+description: "Coordinate-wise rates of change, differentiability, Clairaut's theorem proof, and mixed partials."
+complexity: "Advanced"
+estimated_time: "45 min"
+prerequisites: ["Scalars", "Vectors", "Derivatives"]
 ---
 
 <h1 align="center"> Chapter 38: Partial Derivatives </h1>
 
----
-
-
-
+***
 
 <div style="background-color: #f0f7ff; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
 
 ### Prerequisite
-
-- **Single-Variable Calculus:** Understanding the derivative as the instantaneous rate of change for functions of the form $f(x)$.
-- **Multivariable Functions:** Familiarity with functions that accept multiple independent inputs, typically denoted as $f(x, y, z, \dots)$.
-- **Limits and Continuity:** A basic grasp of how a function behaves as its inputs approach a specific point in space.
+* **Single-Variable Derivatives:** Knowing how to compute instantaneous rates of change for $f(x)$.
+* **Multivariable Functions:** Familiarity with functions of the form $f(x, y, z, \dots)$.
 
 </div>
 
-## Analogy
+## 1. Conceptual Hook
 
-Managing a complex machine learning model is often like managing a modern **Bank Passbook**. In a perfect world, your balance is just one number, but in reality, your financial standing is a result of multiple independent streams: interest credits, ATM withdrawals, monthly fees, and direct deposits.
+In machine learning, we are rarely optimized by a single parameter. A neural network's loss function is determined by millions of weights and biases simultaneously. To minimize this loss, we cannot just tweak all parameters blindly. We need to isolate the influence of each individual weight. The mathematical tool that performs this isolation is the **partial derivative**.
 
-When you stand at that kiosk to update your passbook, you aren't just looking at the final balance; you are looking for the "why" behind the change. If your balance dropped by $500$, you need to isolate which specific "input"—the rent check or the weekend splurge—caused that shift. A partial derivative is the mathematical equivalent of looking at your passbook and asking: _"If I keep every other transaction exactly the same, but I increase my monthly interest credit by just one dollar, how much will my final balance change?"_ It is the art of freezing the world to see how one specific lever moves the needle.
+A partial derivative allows us to freeze the rest of the world. It evaluates the sensitivity of a multivariable function to one specific variable while holding all other variables constant. It is the mathematical equivalent of looking at a complex model and asking: _"If I keep every other weight and bias in the network exactly the same, but I increase this single weight by a tiny fraction, how much does the final loss change?"_ By calculating these coordinate-wise sensitivities, we can decide how to update every parameter in our model.
 
-## The Math Link
+---
 
-In formal terms, let $f$ be a scalar-valued function of $n$ variables, defined on an open set $\mathcal{S} \subseteq \mathbb{R}^n$. The partial derivative of $f$ with respect to the $i$-th variable $x_i$ at the point $\mathbf{a} = (a_1, a_2, \dots, a_n)$ is defined as the limit:
+## 2. Formal Definition
 
-$$\frac{\partial f}{\partial x_i}(\mathbf{a}) = \lim_{h \to 0} \frac{f(a_1, \dots, a_i + h, \dots, a_n) - f(a_1, \dots, a_i, \dots, a_n)}{h}$$
+Let $f: U \to \mathbb{R}$ be a scalar-valued function defined on an open set $U \subseteq \mathbb{R}^n$. The **partial derivative** of $f$ with respect to the $i$-th coordinate variable $x_i$ at a point $a = (a_1, a_2, \dots, a_n) \in U$ is defined as the limit:
+$$\frac{\partial f}{\partial x_i}(a) = \lim_{h \to 0} \frac{f(a_1, \dots, a_i + h, \dots, a_n) - f(a_1, \dots, a_n)}{h}$$
+if the limit exists.
 
-To derive this logic for a multivariable system where $z = f(x, y)$, we treat the variable not being differentiated as a constant. If we are differentiating with respect to $x$, we treat $y$ as a fixed value $y_0$. The derivation follows the standard difference quotient:
+Other common notations for $\frac{\partial f}{\partial x_i}(a)$ include $\partial_{x_i} f(a)$, $f_{x_i}(a)$, and $D_i f(a)$.
 
-1.  **Isolate the Variable:** Define a single-variable function $g(x) = f(x, y_0)$.
-2.  **Apply Power/Chain Rules:** Compute $g'(x)$ using standard rules $\forall x \in \mathbb{R}$ where the derivative exists.
-3.  **Result:** The resulting expression $\frac{\partial f}{\partial x}$ represents the slope of the tangent line to the surface $z = f(x, y)$ in the direction of the $x$-axis.
+### Multivariable Differentiability
+The existence of all partial derivatives at a point $a$ is a *necessary* but *not sufficient* condition for a multivariable function to be differentiable at $a$. For a function to be differentiable in the multivariable sense, it must be locally approximable by a linear map (the total derivative). A sufficient condition for differentiability at $a$ is that all first-order partial derivatives exist in an open neighborhood around $a$ and are continuous at $a$.
 
-In our analogy:
+---
 
-- $f(x_1, x_2, \dots, x_n)$ is the **Final Passbook Balance**.
-- $x_i$ is a **Specific Transaction Type** (e.g., Interest Rate).
-- $\frac{\partial f}{\partial x_i}$ is the **Sensitivity** of your balance to that specific transaction.
+## 3. Illustrative Derivation
 
-<div style="background-color: #f0fff4; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
+### Proof of Clairaut's Theorem (Symmetry of Mixed Partials)
+In machine learning optimization, we frequently calculate second-order derivatives (Hessian matrices). We prove that under continuity conditions, the order of differentiation does not matter: the mixed partial derivatives are symmetric.
 
-**THE INTUITION**
-Think of partial derivatives as "blinders." You are intentionally ignoring the chaos of the other variables to see the pure, unadulterated influence of a single factor. If you change $x$ and $y$ at the same time, you'll never know who to blame for the error.
+**Theorem (Clairaut's/Schwarz's Theorem):** Let $f: U \to \mathbb{R}$ be defined on an open set $U \subseteq \mathbb{R}^2$. If the partial derivatives $\frac{\partial f}{\partial x}$, $\frac{\partial f}{\partial y}$, $\frac{\partial^2 f}{\partial x \partial y}$, and $\frac{\partial^2 f}{\partial y \partial x}$ exist and are continuous on $U$, then for any $(x, y) \in U$:
+$$\frac{\partial^2 f}{\partial x \partial y} = \frac{\partial^2 f}{\partial y \partial x}$$
 
-</div>
+*Proof:*
+For fixed, sufficiently small increments $h, k \in \mathbb{R}$, define the double difference operator $\Delta(h, k)$ as:
+$$\Delta(h, k) = f(x+h, y+k) - f(x+h, y) - f(x, y+k) + f(x, y)$$
 
-## Let's Run the Numbers
+1.  **First MVT Application (w.r.t $x$):**
+    Define a single-variable auxiliary function $g(u) = f(u, y+k) - f(u, y)$. Then:
+    $$\Delta(h, k) = g(x+h) - g(x)$$
+    Since $f$ has continuous partial derivatives, $g$ is differentiable on $[x, x+h]$. By the Mean Value Theorem (MVT):
+    $$\Delta(h, k) = h \cdot g'(c) = h \cdot \left[ \frac{\partial f}{\partial x}(c, y+k) - \frac{\partial f}{\partial x}(c, y) \right]$$
+    for some $c \in (x, x+h)$.
+    Applying the MVT a second time to the function $u(v) = \frac{\partial f}{\partial x}(c, v)$ on the interval $[y, y+k]$:
+    $$\Delta(h, k) = h \cdot k \cdot \frac{\partial^2 f}{\partial y \partial x}(c, d)$$
+    for some $d \in (y, y+k)$.
 
-### Example 1: Standing in the machine queue
+2.  **Second MVT Application (w.r.t $y$):**
+    Alternatively, define a single-variable auxiliary function $w(v) = f(x+h, v) - f(x, v)$. Then:
+    $$\Delta(h, k) = w(y+k) - w(y)$$
+    By the MVT:
+    $$\Delta(h, k) = k \cdot w'(d') = k \cdot \left[ \frac{\partial f}{\partial y}(x+h, d') - \frac{\partial f}{\partial y}(x, d') \right]$$
+    for some $d' \in (y, y+k)$.
+    Applying the MVT a second time to the function $p(u) = \frac{\partial f}{\partial y}(u, d')$ on the interval $[x, x+h]$:
+    $$\Delta(h, k) = k \cdot h \cdot \frac{\partial^2 f}{\partial x \partial y}(c', d')$$
+    for some $c' \in (x, x+h)$.
 
-You are standing at the bank kiosk. Your total satisfaction $S$ depends on the number of people in the queue ($q$) and the cooling temperature of the lobby ($t$). The satisfaction function is $S(q, t) = 100 - q^2 - 0.5t^2$. You want to know how much more annoyed you get per person added to the queue, regardless of the temperature.
+3.  **Equate and limit:**
+    Since both derivations yield $\Delta(h, k)$, we set them equal (for $h, k \neq 0$):
+    $$h \cdot k \cdot \frac{\partial^2 f}{\partial y \partial x}(c, d) = h \cdot k \cdot \frac{\partial^2 f}{\partial x \partial y}(c', d')$$
+    Divide both sides by $h \cdot k$:
+    $$\frac{\partial^2 f}{\partial y \partial x}(c, d) = \frac{\partial^2 f}{\partial x \partial y}(c', d')$$
+    Take the limit as $(h, k) \to (0, 0)$. Since $c, c' \to x$ and $d, d' \to y$, and because the second-order mixed partial derivatives are assumed to be continuous on $U$:
+    $$\lim_{(h,k) \to (0,0)} \frac{\partial^2 f}{\partial y \partial x}(c, d) = \frac{\partial^2 f}{\partial y \partial x}(x, y)$$
+    $$\lim_{(h,k) \to (0,0)} \frac{\partial^2 f}{\partial x \partial y}(c', d') = \frac{\partial^2 f}{\partial x \partial y}(x, y)$$
+    Thus, we obtain:
+    $$\frac{\partial^2 f}{\partial y \partial x}(x, y) = \frac{\partial^2 f}{\partial x \partial y}(x, y) \quad \blacksquare$$
 
-**Calculation:**
-$$\text{Find } \frac{\partial S}{\partial q} \text{ at } q=5, t=72$$
-$$\frac{\partial S}{\partial q} = \frac{\partial}{\partial q}(100 - q^2 - 0.5t^2)$$
-$$\frac{\partial S}{\partial q} = 0 - 2q - 0 = -2q$$
-$$\text{At } q=5: \frac{\partial S}{\partial q} = -2(5) = -10$$
+---
 
-**The Story:** The math shows that for every extra person who joins the queue, your satisfaction drops by 10 units. Because we held $t$ constant, we know this frustration is purely about the crowd, not the heat.
+## 4. Concrete Examples
 
-### Example 2: Checking for missing entries
+### Example 1: First-Order Partial Derivatives
+Compute $\frac{\partial f}{\partial x}$ and $\frac{\partial f}{\partial y}$ for $f(x, y) = x^2 y + \sin(xy)$.
+1.  **Differentiate with respect to $x$ (treat $y$ as a constant):**
+    $$\frac{\partial f}{\partial x} = \frac{\partial}{\partial x}(x^2 y) + \frac{\partial}{\partial x}(\sin(xy))$$
+    $$\frac{\partial f}{\partial x} = 2xy + \cos(xy) \cdot \frac{\partial}{\partial x}(xy) = 2xy + y\cos(xy)$$
+2.  **Differentiate with respect to $y$ (treat $x$ as a constant):**
+    $$\frac{\partial f}{\partial y} = \frac{\partial}{\partial y}(x^2 y) + \frac{\partial}{\partial y}(\sin(xy))$$
+    $$\frac{\partial f}{\partial y} = x^2 + \cos(xy) \cdot \frac{\partial}{\partial y}(xy) = x^2 + x\cos(xy)$$
 
-You notice your balance $B$ is calculated based on monthly deposits $d$ and the number of months $m$, modeled by $B(d, m) = d \cdot m + 0.01d^2$. You realize a deposit entry is missing. You need to see how sensitive your balance is to the deposit amount to see if it's worth arguing with the teller.
+### Example 2: Verifying Clairaut's Theorem
+Verify that the mixed partials of $f(x, y) = e^{x y^2}$ are symmetric.
+1.  **Compute first-order partials:**
+    $$\frac{\partial f}{\partial x} = y^2 e^{x y^2}$$
+    $$\frac{\partial f}{\partial y} = 2xy e^{x y^2}$$
+2.  **Compute mixed partial $\frac{\partial^2 f}{\partial y \partial x}$ (differentiate $\frac{\partial f}{\partial x}$ w.r.t $y$):**
+    Use the product rule:
+    $$\frac{\partial^2 f}{\partial y \partial x} = \frac{\partial}{\partial y}(y^2) \cdot e^{x y^2} + y^2 \cdot \frac{\partial}{\partial y}(e^{x y^2})$$
+    $$\frac{\partial^2 f}{\partial y \partial x} = 2y e^{x y^2} + y^2 (2xy e^{x y^2}) = 2y e^{x y^2} + 2xy^3 e^{x y^2} = (2y + 2xy^3)e^{x y^2}$$
+3.  **Compute mixed partial $\frac{\partial^2 f}{\partial x \partial y}$ (differentiate $\frac{\partial f}{\partial y}$ w.r.t $x$):**
+    Use the product rule:
+    $$\frac{\partial^2 f}{\partial x \partial y} = \frac{\partial}{\partial x}(2xy) \cdot e^{x y^2} + 2xy \cdot \frac{\partial}{\partial x}(e^{x y^2})$$
+    $$\frac{\partial^2 f}{\partial x \partial y} = 2y e^{x y^2} + 2xy (y^2 e^{x y^2}) = (2y + 2xy^3)e^{x y^2}$$
+The mixed partials are identical, verifying Clairaut's Theorem.
 
-**Calculation:**
-$$\text{Find } \frac{\partial B}{\partial d} \text{ at } d=1000, m=12$$
-$$\frac{\partial B}{\partial d} = \frac{\partial}{\partial d}(dm + 0.01d^2)$$
-$$\frac{\partial B}{\partial d} = m + 0.02d$$
-$$\text{At } d=1000, m=12: 12 + 0.02(1000) = 12 + 20 = 32$$
+---
 
-**The Story:**
-This result ($32$) tells you that for every \$1 increase in your deposit amount, your balance increases by \$32 over the year (due to the compounding-like effect of the squared term). This tells you that missing deposits are a high-priority fix.
+## 5. Applied ML Context
 
-### Example 3: The thrill of interest credit
+1.  **Backpropagation:** The gradient of the loss function is computed by calculating the partial derivative of the loss with respect to each individual weight parameter: $\frac{\partial \mathcal{L}}{\partial w_{ij}}$.
+2.  **Jacobian Matrices:** In multi-task learning or generative adversarial networks, we construct Jacobian matrices containing the first-order partial derivatives of multiple outputs with respect to multiple inputs.
+3.  **Hessian Matrices:** Second-order optimization methods (like Newton's method) compute the Hessian matrix of second partial derivatives ($\frac{\partial^2 f}{\partial x_i \partial x_j}$) to measure curvature.
+4.  **Sensitivity Analysis:** In interpretability models (like Integrated Gradients), the feature importance of an input feature $x_i$ is evaluated by computing the partial derivative of the prediction with respect to that feature: $\frac{\partial \hat{y}}{\partial x_i}$.
+5.  **Softmax Logit Updates:** The derivative of the softmax output with respect to a logit input requires computing partial derivatives, which are used to formulate cross-entropy classification updates.
 
-The bank applies a complex interest credit $C$ based on your principal $P$ and the current annual rate $r$: $C(P, r) = P \cdot e^{2r}$. You want to see how much "thrill" (extra credit) you get if the bank raises the rate by a tiny fraction.
+---
 
-**Calculation:**
-$$\text{Find } \frac{\partial C}{\partial r} \text{ at } P=5000, r=0.05$$
-$$\frac{\partial C}{\partial r} = \frac{\partial}{\partial r}(P \cdot e^{2r})$$
-$$\frac{\partial C}{\partial r} = P \cdot e^{2r} \cdot 2 = 2Pe^{2r}$$
-$$\text{At } P=5000, r=0.05: 2(5000)e^{2(0.05)} = 10000 \cdot e^{0.1} \approx 10000 \cdot 1.105 = 11051.7$$
+## 6. Visual/Intuitive Summary
 
-**The Story:**
-The partial derivative w.r.t rate is massive ($11,051.7$). This tells you that even a microscopic nudge in the interest rate yields a huge "thrill" in credit because your principal is high.
-
-<div style="background-color: #fff5f5; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
-
-**CRITICAL INSIGHT**
-In ML, we rarely deal with two variables. We deal with millions. The collection of all partial derivatives of a function is the **Gradient Vector** $\nabla f$. A common "gotcha" is forgetting that a partial derivative only gives you the slope in an axis-aligned direction. If you want to move in a diagonal direction, the partial derivative alone isn't enough—you need the full gradient.
-
-</div>
-
-## ML Applications
-
-- **Gradient Descent in Backpropagation:** Partial derivatives of the loss function $L$ with respect to each weight $w_{ij}$ and bias $b_i$ are calculated to update parameters using $w_{new} = w_{old} - \eta \frac{\partial L}{\partial w}$.
-- **Jacobian Matrices in Robotics:** In inverse kinematics, the Jacobian matrix (a matrix of first-order partial derivatives) maps joint velocities to end-effector velocities in 3D space.
-- **Feature Importance in Sensitivity Analysis:** By calculating $\frac{\partial \hat{y}}{\partial x_i}$, researchers determine which input feature $x_i$ has the greatest marginal impact on the model's prediction $\hat{y}$.
-- **Convolutional Neural Networks (CNNs):** During the backward pass of a convolution layer, partial derivatives are computed with respect to the filter kernels to learn spatial patterns like edges and textures.
-- **Regularization Tuning:** Partial derivatives of the penalty terms (like $L1$ or $L2$ norms) are added to the loss gradient to ensure the model weights remain small and avoid overfitting.
-
-<div style="background-color: #fffaf0; padding: 15px; border-radius: 8px; color: #1f2328; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05);">
-
-**Debugging Tip:** If your model isn't learning, check your partial derivatives. A "Vanishing Gradient" happens when the partial derivative w.r.t. a weight becomes so small that the update $w_{new} = w_{old} - \eta \cdot 0$ effectively stops the learning process. Always monitor the magnitude of your partials during training.
-
-</div>
-
-
+A diagram should be placed here illustrating the geometric interpretation of partial derivatives on a 3D surface:
+*   Show a 3D surface $z = f(x, y)$ (for example, a curved mountain peak).
+*   Plot a point $P(x_0, y_0, z_0)$ on the surface.
+*   Draw a vertical plane slicing through the surface along the line $y = y_0$ (parallel to the x-axis).
+*   Show the 2D curve formed by the intersection of this plane and the surface. Draw a tangent line to this curve at $P$.
+*   Label the slope of this tangent line as the partial derivative with respect to $x$: $\frac{\partial f}{\partial x}(x_0, y_0)$.
+*   Draw a second vertical plane slicing through $P$ along the line $x = x_0$ (parallel to the y-axis). Draw the tangent line to the resulting intersection curve, and label its slope as the partial derivative with respect to $y$: $\frac{\partial f}{\partial y}(x_0, y_0)$, illustrating how partial derivatives represent slopes in axis-aligned directions.

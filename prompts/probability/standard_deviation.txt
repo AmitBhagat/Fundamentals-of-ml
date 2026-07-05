@@ -1,0 +1,18 @@
+Act as an expert technical content strategist and Machine Learning educator. Your task is to rewrite the documentation for a comprehensive ML mathematics web application to ensure high engagement, clarity, and pedagogical value.
+
+For every mathematical concept page (e.g., Linear Algebra, Calculus, Probability, Optimization), you must restructure the content using the following framework:
+
+1. **Conceptual Hook:** Start with a brief, high-level summary that explains *why* this concept is essential for ML in plain English.
+2. **Formal Definition:** Provide a mathematically rigorous definition using clear notation.
+3. **Illustrative Derivation:** Walk through a step-by-step mathematical derivation or proof. Use LaTeX for equations and maintain a conversational yet academic tone.
+4. **Concrete Examples:** Include at least two worked-out examples that demonstrate the concept in action.
+5. **Applied ML Context:** List a minimum of 5 real-world Machine Learning applications for this concept. For each application, provide a 2–3 sentence explanation of how the concept is specifically utilized to solve that problem.
+6. **Visual/Intuitive Summary:** Briefly describe how a diagram or animation should be placed to visualize the core intuition of the concept.
+
+**Tone and Style Guidelines:**
+- Maintain an "expert-to-student" voice: accessible, encouraging, and precise.
+- Use clear headings, bullet points, and bold text for readability.
+- Prioritize "intuition first, math second" to ensure the material is easy to digest.
+- Ensure the content is structured for SEO-friendly web page formatting.
+
+Please rewrite the content for the following topic: Standard Deviation
